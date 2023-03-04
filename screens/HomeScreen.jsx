@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, View, Image, TextInput, ScrollView } from 'react-native'
+import { SafeAreaView, Text, View, Image, TextInput, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Icon } from '@rneui/base';
@@ -41,12 +41,18 @@ const HomeScreen = () => {
             </Text>
           </View>
 
-          <Icon 
-            name='user'
-            type='antdesign'
-            color="#00CCBB"
-            size={35}
-          />
+					<TouchableOpacity
+						onPress={() => navigation.navigate("Profile")}
+					>
+						<Icon 
+							name='user'
+							type='antdesign'
+							color="#00CCBB"
+							size={35}
+						/>
+					</TouchableOpacity>
+
+          
         </View>
 
         {/* {Search} */}
@@ -100,6 +106,7 @@ const HomeScreen = () => {
             title="Offers near you!"
             description="Why not support your loca restaurant tonight!"
           />
+
           
         </ScrollView>
     </SafeAreaView>
