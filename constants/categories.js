@@ -1,0 +1,18 @@
+export const categoryData = [
+	{ imgUrl: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E",
+	 title: "Food" },
+	{ imgUrl: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E", 
+	title: "Drink" },
+	{ imgUrl: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E", 
+	title: "Desert" },
+	{ imgUrl: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E", 
+	title: "Health & Ftness" },
+	{ imgUrl: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E", 
+	title: "Hair & Beauty" },
+	{ imgUrl: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E", 
+	title: "Pet" },
+	{ imgUrl: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E", 
+	title: "Fashion" },
+	{ imgUrl: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E", 
+	title: "Education" },
+];

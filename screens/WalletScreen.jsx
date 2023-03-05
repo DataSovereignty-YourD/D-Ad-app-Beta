@@ -19,31 +19,36 @@ export const WalletScreen = () => {
 	}, []);
 
 	return (
-		<SafeAreaView className="bg-gray-100">
+		<SafeAreaView className="bg-white">
 			{/* {Header} */}
 			<View className="flex-row pb-3 items-center mx-4 space-x-2">
-        
-          <View className="flex-1">
-      
-            <Text className="font-bold text-xl">
-              Wallet
-            </Text>
-          </View>
 
-					<TouchableOpacity
-						onPress={() => navigation.navigate("Profile")}
-					>
-						<Icon 
-							name='user'
-							type='antdesign'
-							color="#00CCBB"
-							size={35}
-						/>
-					</TouchableOpacity>
+				<View className="flex-1">
 
-          
-        </View>
-			<ScrollView>
+					<Text className="font-bold text-xl">
+						Wallet
+					</Text>
+				</View>
+
+				<TouchableOpacity
+					onPress={() => navigation.navigate("Profile")}
+				>
+					<Icon
+						name='user'
+						type='antdesign'
+						color="#00CCBB"
+						size={35}
+					/>
+				</TouchableOpacity>
+
+
+			</View>
+			<ScrollView
+				className="bg-gray-100"
+				contentContainerStyle={{
+					paddingBottom: 100,
+				}}
+			>
 				<Balance />
 				<ServicesGrid />
 				<TransactionHistory />

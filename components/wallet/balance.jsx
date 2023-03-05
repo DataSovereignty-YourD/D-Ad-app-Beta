@@ -7,6 +7,7 @@ const Balance = () => {
   return (
     <HStack
       px={4}
+			pt={8}
       pb={6}
       alignItems="center"
       justifyContent="flex-start"

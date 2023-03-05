@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Button, Heading, HStack, useTheme, VStack } from 'native-base';
 import  TransactionItem  from '../transaction-item';
-import { TRANSACTIONS } from '../../features/transactions'; 
+import { TRANSACTIONS } from '../../constants/transactions'; 
 
 
 const TransactionHistory = () => {

@@ -22,15 +22,15 @@ const TabNavigator = () => {
 
 	return (
 		<Tab.Navigator screenOptions={({ route }) => ({
-			tabBarActiveTintColor: "#59C1CC",
+			tabBarActiveTintColor: "#000000",
 			tabBarInactiveTintColor: "gray",
 			tabBarIcon: ({ focused, color, size }) => {
 				if (route.name === 'My Ads') {
 					return (
 						<Icon
-							name='home'
+							name='box'
 							type='entypo'
-							color={focused ? "#EB6A7C" : "gray"}
+							color={focused ? "#000000" : "gray"}
 						/>
 					)
 				} else if (route.name === 'Profile') {
@@ -38,7 +38,7 @@ const TabNavigator = () => {
 						<Icon
 							name='user'
 							type='entypo'
-							color={focused ? "#EB6A7C" : "gray"}
+							color={focused ? "#000000" : "gray"}
 						/>
 					)
 				} else if (route.name === 'Wallet') {
@@ -46,7 +46,7 @@ const TabNavigator = () => {
 							<Icon 
 								name='wallet'
 								type='entypo'
-								color={focused ? "#EB6A7C" : "gray"}
+								color={focused ? "#000000" : "gray"}
 							/>
 						)
 				}
