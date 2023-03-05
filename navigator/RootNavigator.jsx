@@ -41,16 +41,16 @@ const RootNavigator = () => {
 			</Rootstack.Group>
 
 			<Rootstack.Group>
-				<Rootstack.Screen name='Home' component={HomeScreen}/>
-			</Rootstack.Group>
-
-			<Rootstack.Group>
-				<Rootstack.Screen name='Restaurant' component={RestaurantScreen}/>
-			</Rootstack.Group>
-
-			<Rootstack.Group>
+				<Rootstack.Screen name='My Ads' component={HomeScreen}/>
+				<Rootstack.Screen name='Advertisement' component={RestaurantScreen}/>
 				<Rootstack.Screen name='Profile' component={ProfileScreen}/>
 			</Rootstack.Group>
+
+			<Rootstack.Group>
+				
+			</Rootstack.Group>
+
+
 		</Rootstack.Navigator>
 	)
 }
