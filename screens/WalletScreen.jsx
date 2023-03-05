@@ -30,18 +30,6 @@ export const WalletScreen = () => {
 					</Text>
 				</View>
 
-				<TouchableOpacity
-					onPress={() => navigation.navigate("Profile")}
-				>
-					<Icon
-						name='user'
-						type='antdesign'
-						color="#00CCBB"
-						size={35}
-					/>
-				</TouchableOpacity>
-
-
 			</View>
 			<ScrollView
 				className="bg-gray-100"
