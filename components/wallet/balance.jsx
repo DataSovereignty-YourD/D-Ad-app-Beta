@@ -17,7 +17,7 @@ const Balance = () => {
         </Text>
         <HStack>
           <Text fontSize="3xl" fontWeight="bold" color={colors.text[500]}>
-            $2,340.00
+            23.00CAT
           </Text>
         </HStack>
       </VStack>

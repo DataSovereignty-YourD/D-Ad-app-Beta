@@ -13,7 +13,7 @@ const TransactionHistory = () => {
     <VStack px={4} py={6}>
       <HStack alignItems="center" justifyContent="space-between" mb={4} mt={1}>
         <Heading fontSize="lg" color={colors.text[500]}>
-          Recent transactions
+          Recent rewards
         </Heading>
         <Button
           variant="ghost"

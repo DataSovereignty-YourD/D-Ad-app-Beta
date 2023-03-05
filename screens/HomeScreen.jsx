@@ -19,25 +19,10 @@ const HomeScreen = () => {
     <SafeAreaView className="bg-white pt-5">
         {/* {Header} */}
         <View className="flex-row pb-3 items-center mx-4 space-x-2">
-          <Image
-            source={{
-              uri: "https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E",
-            }}
-            className="h-7 w-7 bg-gray-300 p-4 rounded-full"
-          />
-
           <View className="flex-1">
-            <Text className="font-bold text-gray-400 text-xs">
-              Delivery Now!
-            </Text>
+          
             <Text className="font-bold text-xl">
-              Current Location
-              <Icon 
-                name='down'
-                type='antdesign'
-                color="#00CCBB"
-                size={20}
-              />
+              My Ads
             </Text>
           </View>
 
