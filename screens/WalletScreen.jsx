@@ -1,7 +1,6 @@
 import { Text, useTheme, ScrollView, View, Image } from 'native-base';
 import { Icon } from '@rneui/base';
 import Balance from '../components/wallet/balance';
-import CardList from '../components/wallet/card-list';
 import ServicesGrid from '../components/wallet/services-grid';
 import TransactionHistory from '../components/wallet/transaction-history';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -62,7 +61,6 @@ export const WalletScreen = () => {
 
 			>
 				<Balance />
-				{/* <CardList /> */}
 				<ServicesGrid />
 				<TransactionHistory />
 			</ScrollView>
