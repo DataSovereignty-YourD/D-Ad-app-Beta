@@ -13,11 +13,11 @@ const Balance = () => {
       justifyContent="flex-start"
     >
       <VStack>
-        <Text fontSize="xs" fontWeight="bold" color={colors.text[500]}>
+        <Text className="font-xs font-bold">
           Total balance
         </Text>
         <HStack>
-          <Text fontSize="3xl" fontWeight="bold" color={colors.text[500]}>
+          <Text className="text-3xl font-bold text-gray-700">
             23.00CAT
           </Text>
         </HStack>
