@@ -3,7 +3,7 @@ import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Icon } from '@rneui/base';
 import Categeries from '../components/Categories';
-import FeaturedRow from '../components/FeaturedRow';
+
 import AdCard from '../components/AdCard';
 
 const HomeScreen = () => {

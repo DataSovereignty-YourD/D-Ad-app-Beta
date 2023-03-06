@@ -2,12 +2,12 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import TabNavigator from './TabNavigator';
-import BasketScreen from '../screens/BasketScreen';
+import BasketScreen from '../deprecated/BasketScreen';
 import PreparingOrderScreen from '../screens/PreparingOrderScreen';
-import DeliveryScreen from '../screens/DeliveryScreen';
+import DeliveryScreen from '../screens/MapScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
-import RestaurantScreen from '../screens/RestaurantScreen';
+import RestaurantScreen from '../screens/AdvertisementScreen';
 
 const Rootstack = createNativeStackNavigator();
 

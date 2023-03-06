@@ -2,12 +2,11 @@ import { View, Text, ScrollView, Image, TouchableOpacity, ActivityIndicator } fr
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Icon } from '@rneui/base';
-import DishRow from '../components/DishRow';
-import BasketIcon from '../components/BasketIcon';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { setRestaurant } from '../features/restaurantSlice';
 import { selectRestaurant } from '../features/restaurantSlice'
-import RestaurantCard from '../components/RestaurantCard';
+
 import RewardButton from '../components/RewardButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Video } from 'expo-av';
@@ -72,7 +71,6 @@ const RestaurantScreen = () => {
 
 	return (
 		<SafeAreaView >
-			<BasketIcon />
 
 			<ScrollView>
 				<View className="relative">
