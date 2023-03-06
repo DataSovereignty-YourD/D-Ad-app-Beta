@@ -1,5 +1,5 @@
 import { SafeAreaView, Text, View, Image, TextInput, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useLayoutEffect, useRef, useState} from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Icon } from '@rneui/base';
 import Categeries from '../components/Categories';
@@ -19,36 +19,31 @@ const HomeScreen = () => {
 	return (
 		<SafeAreaView className="bg-white pt-5">
 			{/* {Header} */}
-			<View className="flex-row pb-3 items-center mx-4 space-x-2">
-				<View className="flex-1">
+			<View className="flex-row pt-2 pb-3 items-center mx-4 space-x-2 justify-between">
 
-					<Text className="font-bold text-xl">
-						My Ads
-					</Text>
-				</View>
+				<Text className="font-bold text-xl">
+					My Ads
+				</Text>
 
-			</View>
-
-			{/* {Search} */}
-			<View className="flex-row items-center space-x-2 pb-2 mx-4">
-				<View className="flex-row flex-1 space-x-2 bg-gray-200 p-3">
+				<View className="flex-row ">
+					<View className="px-4">
 					<Icon
 						name='search1'
 						type='antdesign'
-						color="gray"
+						size={20}
+						
+					/>
+					</View>
+					
+					<Icon
+						name='bell'
+						type='feather'
 						size={20}
 					/>
-					<TextInput
-						placeholder='Restaurants and cuisines'
-						keyboardType='default'
-					/>
 				</View>
-				<Icon
-					name='equalizer'
-					type='fontisto'
-					color="#00CCBB"
-				/>
+
 			</View>
+
 
 			{/* {Body} */}
 			<ScrollView
