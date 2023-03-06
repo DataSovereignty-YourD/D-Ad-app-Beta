@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect } from 'react';
 import { Icon } from '@rneui/base';
 import WalletScreen from '../screens/WalletScreen';
+import MapScreen from '../screens/MapScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -55,6 +56,7 @@ const TabNavigator = () => {
 			<Tab.Screen name='My Ads' component={HomeScreen} />
 			<Tab.Screen name='Profile' component={ProfileScreen} />
 			<Tab.Screen name='Wallet' component={WalletScreen} />
+			<Tab.Screen name='MapTest' component={MapScreen} />
 		</Tab.Navigator>
 	)
 }

@@ -11,11 +11,12 @@ import RewardButton from '../components/RewardButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Video } from 'expo-av';
 
-const RestaurantScreen = () => {
+const AdvertisementScreen = () => {
 	const video = useRef(null);
 	const navigation = useNavigation();
 	const dispatch = useDispatch(selectRestaurant);
 	const [isLoading, setIsLoading] = useState(true);
+	const [staus, setStaus] = useState({});
 
 	const handleLoadStart = () => {
 		setIsLoading(true);
@@ -159,7 +160,7 @@ const RestaurantScreen = () => {
 					<Text className="px-4 pt-6 mb-3 font-bold text-xl">Video</Text>
 				</View>
 
-				<View className="w-full h-40">
+				<View className="flex-1 w-full h-40 justify-center items-center">
 					{isLoading && (
 						<View className="items-center">
 							<ActivityIndicator />
@@ -175,6 +176,8 @@ const RestaurantScreen = () => {
 						onError={handleError}
 						resizeMode="contain"
 						useNativeControls
+						isLooping
+						onPlaybackStatusUpdate={setStaus}
 					/>
 				</View>
 
@@ -219,4 +222,4 @@ const RestaurantScreen = () => {
 	)
 }
 
-export default RestaurantScreen
+export default AdvertisementScreen

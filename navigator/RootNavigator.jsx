@@ -4,10 +4,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import TabNavigator from './TabNavigator';
 import BasketScreen from '../deprecated/BasketScreen';
 import PreparingOrderScreen from '../screens/PreparingOrderScreen';
-import DeliveryScreen from '../screens/MapScreen';
+import LocationScreen from '../screens/LocationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
-import RestaurantScreen from '../screens/AdvertisementScreen';
+import AdvertisementScreen from '../screens/AdvertisementScreen';
+import MapScreen from '../screens/MapScreen';
 
 const Rootstack = createNativeStackNavigator();
 
@@ -38,13 +39,14 @@ const RootNavigator = () => {
 					component={PreparingOrderScreen}/>
 				<Rootstack.Screen 
 					name='Delivery'
-					component={DeliveryScreen}/>
+					component={LocationScreen}/>
 			</Rootstack.Group>
 
 			<Rootstack.Group>
 				<Rootstack.Screen name='My Ads' component={HomeScreen}/>
-				<Rootstack.Screen name='Advertisement' component={RestaurantScreen}/>
+				<Rootstack.Screen name='Advertisement' component={AdvertisementScreen}/>
 				<Rootstack.Screen name='Profile' component={ProfileScreen}/>
+				<Rootstack.Screen name='MapTest' component={MapScreen} />
 			</Rootstack.Group>
 
 	
