@@ -1,20 +1,35 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { View, Text, ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Icon } from '@rneui/base';
 import DishRow from '../components/DishRow';
 import BasketIcon from '../components/BasketIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRestaurant } from '../features/restaurantSlice';
-import {selectRestaurant} from '../features/restaurantSlice'
+import { selectRestaurant } from '../features/restaurantSlice'
 import RestaurantCard from '../components/RestaurantCard';
 import RewardButton from '../components/RewardButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Video } from 'expo-av';
 
 const RestaurantScreen = () => {
+	const video = useRef(null);
 	const navigation = useNavigation();
 	const dispatch = useDispatch(selectRestaurant);
+	const [isLoading, setIsLoading] = useState(true);
 
+  const handleLoadStart = () => {
+    setIsLoading(true);
+  };
+
+  const handleLoad = () => {
+    setIsLoading(false);
+  };
+
+  const handleError = () => {
+    setIsLoading(false);
+    console.log('Error loading video');
+  };
 
 	const {
 		params: {
@@ -56,7 +71,7 @@ const RestaurantScreen = () => {
 
 
 	return (
-		<SafeAreaView>
+		<SafeAreaView >
 			<BasketIcon />
 
 			<ScrollView>
@@ -130,6 +145,25 @@ const RestaurantScreen = () => {
 					<Text className="px-4 pt-6 mb-3 font-bold text-xl">Video</Text>
 				</View>
 
+				<View className="w-full h-40">
+					{isLoading && (
+						<View className="items-center">
+							<ActivityIndicator />
+							<Text className="pt-2">Loading video...</Text>
+						</View>
+					)}
+					{/* https://gateway.pinata.cloud/ipfs/QmfVvFKpNrZaXemtDSc37awY4kweGmTDREy6uvjGQTtHC7 */}
+					<Video
+						ref={video}
+						source={{ uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+						onLoadStart={handleLoadStart}
+						onLoad={handleLoad}
+						onError={handleError}
+						resizeMode="contain"
+						useNativeControls
+					/>
+				</View>
+
 				<View className="pb-40">
 					<Text className="px-4 pt-6 mb-3 font-bold text-xl">Menu</Text>
 					{/* {Dishrows} */}
@@ -157,13 +191,13 @@ const RestaurantScreen = () => {
 						price={100}
 						imgUrl="https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
 					/>
-					
+
 
 				</View>
 
 				<RewardButton />
 
-				
+
 
 			</ScrollView>
 		</SafeAreaView>

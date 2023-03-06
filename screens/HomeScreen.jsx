@@ -1,10 +1,9 @@
-import { SafeAreaView, Text, View, Image, TextInput, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import { SafeAreaView, Text, View, Image, TextInput, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React, { useLayoutEffect, useRef, useState} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Icon } from '@rneui/base';
 import Categeries from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
-
 import AdCard from '../components/AdCard';
 
 const HomeScreen = () => {
