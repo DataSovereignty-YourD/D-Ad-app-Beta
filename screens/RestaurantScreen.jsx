@@ -18,18 +18,18 @@ const RestaurantScreen = () => {
 	const dispatch = useDispatch(selectRestaurant);
 	const [isLoading, setIsLoading] = useState(true);
 
-  const handleLoadStart = () => {
-    setIsLoading(true);
-  };
+	const handleLoadStart = () => {
+		setIsLoading(true);
+	};
 
-  const handleLoad = () => {
-    setIsLoading(false);
-  };
+	const handleLoad = () => {
+		setIsLoading(false);
+	};
 
-  const handleError = () => {
-    setIsLoading(false);
-    console.log('Error loading video');
-  };
+	const handleError = () => {
+		setIsLoading(false);
+		console.log('Error loading video');
+	};
 
 	const {
 		params: {
@@ -139,6 +139,22 @@ const RestaurantScreen = () => {
 							Have a food allergy?
 						</Text>
 					</TouchableOpacity>
+
+					<TouchableOpacity 
+					className="flex-row items-center space-x-2 p-4 border-y border-gray-300"
+					onPress={() => navigation.navigate("Delivery")}
+					>
+						<Icon
+							name='location-pin'
+							type='entypo'
+							color="gray"
+							opacity={0.4}
+							size={22}
+						/>
+						<Text className="pl-2 flex-1 font-bold">
+							Map
+						</Text>
+					</TouchableOpacity>
 				</View>
 
 				<View>
@@ -165,9 +181,9 @@ const RestaurantScreen = () => {
 				</View>
 
 				<View className="pb-40">
-					<Text className="px-4 pt-6 mb-3 font-bold text-xl">Menu</Text>
+					{/* <Text className="px-4 pt-6 mb-3 font-bold text-xl">Menu</Text> */}
 					{/* {Dishrows} */}
-					<DishRow
+					{/* <DishRow
 						key={987}
 						id={987}
 						name="fff"
@@ -190,7 +206,7 @@ const RestaurantScreen = () => {
 						description="ffffff"
 						price={100}
 						imgUrl="https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
-					/>
+					/> */}
 
 
 				</View>
