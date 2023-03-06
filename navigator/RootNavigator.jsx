@@ -8,6 +8,7 @@ import DeliveryScreen from '../screens/DeliveryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
 import RestaurantScreen from '../screens/RestaurantScreen';
+
 const Rootstack = createNativeStackNavigator();
 
 const RootNavigator = () => {
@@ -46,9 +47,7 @@ const RootNavigator = () => {
 				<Rootstack.Screen name='Profile' component={ProfileScreen}/>
 			</Rootstack.Group>
 
-			<Rootstack.Group>
-				
-			</Rootstack.Group>
+	
 
 
 		</Rootstack.Navigator>

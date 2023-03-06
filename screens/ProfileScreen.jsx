@@ -3,7 +3,6 @@ import React, { Component, useLayoutEffect } from 'react'
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { Icon } from '@rneui/base';
 
 
 class MyWeb extends Component {

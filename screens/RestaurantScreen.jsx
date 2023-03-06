@@ -7,6 +7,9 @@ import BasketIcon from '../components/BasketIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRestaurant } from '../features/restaurantSlice';
 import {selectRestaurant} from '../features/restaurantSlice'
+import RestaurantCard from '../components/RestaurantCard';
+import RewardButton from '../components/RewardButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const RestaurantScreen = () => {
 	const navigation = useNavigation();
@@ -53,7 +56,7 @@ const RestaurantScreen = () => {
 
 
 	return (
-		<>
+		<SafeAreaView>
 			<BasketIcon />
 
 			<ScrollView>
@@ -123,6 +126,10 @@ const RestaurantScreen = () => {
 					</TouchableOpacity>
 				</View>
 
+				<View>
+					<Text className="px-4 pt-6 mb-3 font-bold text-xl">Video</Text>
+				</View>
+
 				<View className="pb-40">
 					<Text className="px-4 pt-6 mb-3 font-bold text-xl">Menu</Text>
 					{/* {Dishrows} */}
@@ -150,11 +157,16 @@ const RestaurantScreen = () => {
 						price={100}
 						imgUrl="https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
 					/>
+					
 
 				</View>
 
+				<RewardButton />
+
+				
+
 			</ScrollView>
-		</>
+		</SafeAreaView>
 
 	)
 }
