@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
+import MintToken from '../api';
 
 export const WalletScreen = () => {
 
@@ -40,6 +41,7 @@ export const WalletScreen = () => {
 				<Balance />
 				<ServicesGrid />
 				<TransactionHistory />
+
 			</ScrollView>
 
 		</SafeAreaView>
