@@ -1,26 +1,20 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 
-const CategoryCard = ({imgUrl, title}) => {
-	const [isActive, setActive] = useState(false);
+const CategoryCard = ({img, title, isActive, onPress}) => {
 
-	const toggleActive = () => {
-    setActive(!isActive);
-  };
 
   return (
     <TouchableOpacity 
 		className="relative mr-2"
-		onPress={toggleActive}
+		onPress={onPress}
 		>
       <Image 
-            source={{
-                uri: imgUrl,
-            }}
+            source={img}
             className={`h-20 w-20 rounded ${isActive ? 'opacity-100' : 'opacity-70'}`}
       />
-      <Text className= {`absolute bottom-1 left-1 text-white font-bold 
-				${isActive ? 'text-black' : 'text-white'}`} >
+      <Text className= {`absolute bottom-1 left-1 text-white
+				${isActive ? 'font-bold' : 'text-white'}`} >
         {title}
       </Text>
     </TouchableOpacity>

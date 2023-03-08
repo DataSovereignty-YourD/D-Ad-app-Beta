@@ -1,9 +1,15 @@
 import { ScrollView, Text } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import CategoryCard from './CategoryCard'
 import { categoryData } from '../constants/categories'
 
-const Categeries = () => {
+const Categories = () => {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const handleCategoryPress = (title) => {
+    setActiveCategory(title);
+  };
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -13,18 +19,25 @@ const Categeries = () => {
       horizontal
       showsVerticalScrollIndicator={false}
     >
+      <CategoryCard
+        img={require("../assets/images/all.jpg")}
+        title="All"
+        isActive={activeCategory === "All"}
+        onPress={() => handleCategoryPress("All")}
+      />
+      {categoryData.map((category) => (
+        category.title !== "All" && (
+          <CategoryCard
+            key={category.title}
+            img={category.img}
+            title={category.title}
+            isActive={activeCategory === category.title}
+            onPress={() => handleCategoryPress(category.title)}
+          />
+        )
+      ))}
+    </ScrollView>
+  );
+};
 
-      {/* {CategoryCard} */}
-			{categoryData.map(category => (
-				<CategoryCard 
-					key={category.title}
-					imgUrl={category.imgUrl}
-					title={category.title}
-				/>
-			))}
-      
-      </ScrollView>
-  )
-}
-
-export default Categeries
+export default Categories;
