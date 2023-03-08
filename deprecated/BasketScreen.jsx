@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux';
-import { selectRestaurant } from '../features/restaurantSlice';
+import { selectRestaurant } from '../features/advertisementSlice';
 import { selectBasketItems, selectBasketTotal } from '../features/basketSlice';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from '@rneui/base';

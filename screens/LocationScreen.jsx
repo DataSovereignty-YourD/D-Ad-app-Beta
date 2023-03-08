@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux';
-import { selectRestaurant } from '../features/restaurantSlice';
+import { selectAdvertisement } from '../features/advertisementSlice';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from '@rneui/base';
 import * as Progress from 'react-native-progress';
@@ -11,7 +11,7 @@ import MapView, { Marker } from 'react-native-maps';
 
 const LocationScreen = () => {
 	const navigation = useNavigation();
-	const restaurant = useSelector(selectRestaurant);
+	const restaurant = useSelector(selectAdvertisement);
 
 	return (
 		<View className="bg-[#00CCBB] flex-1">

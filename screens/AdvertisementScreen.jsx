@@ -1,11 +1,11 @@
-import { View, Text, ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView, Image, TouchableOpacity, ActivityIndicator, Button, Alert } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Icon } from '@rneui/base';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setRestaurant } from '../features/restaurantSlice';
-import { selectRestaurant } from '../features/restaurantSlice'
+import { setAdvertisement } from '../features/advertisementSlice';
+import { selectAdvertisement } from '../features/advertisementSlice'
 
 import RewardButton from '../components/RewardButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,9 +14,10 @@ import { Video } from 'expo-av';
 const AdvertisementScreen = () => {
 	const video = useRef(null);
 	const navigation = useNavigation();
-	const dispatch = useDispatch(selectRestaurant);
+	const dispatch = useDispatch(selectAdvertisement);
 	const [isLoading, setIsLoading] = useState(true);
 	const [staus, setStaus] = useState({});
+	const [isVideoEnded, setIsVideoEnded] = useState(false);
 
 	const handleLoadStart = () => {
 		setIsLoading(true);
@@ -30,6 +31,26 @@ const AdvertisementScreen = () => {
 		setIsLoading(false);
 		console.log('Error loading video');
 	};
+
+	const handlePlaybackStatusUpdate = (status) => {
+    setStaus(status);
+    if (status.didJustFinish) {
+      setIsVideoEnded(true);
+    }
+  };
+
+	const handleRewardButtonClick = () => {
+		if (isVideoEnded) {
+			Alert.alert('Congratulations!', 'You have received a 10CAT!', [
+				{ text: 'Check', onPress: () => console.log('Check pressed') },  
+			]);
+		} else {
+			Alert.alert('Warning!', 'You can only get it if you watch the video.', [
+				{ text: 'Check', onPress: () => console.log('Check pressed') },  
+			]);
+		}
+	};
+	
 
 	const {
 		params: {
@@ -48,7 +69,7 @@ const AdvertisementScreen = () => {
 
 	useEffect(() => {
 		dispatch(
-			setRestaurant({
+			setAdvertisement({
 				id,
 				imgUrl,
 				title,
@@ -160,7 +181,7 @@ const AdvertisementScreen = () => {
 					<Text className="px-4 pt-6 mb-3 font-bold text-xl">Video</Text>
 				</View>
 
-				<View className="flex-1 w-full h-40 justify-center items-center">
+				<View className="flex-1 w-full h-64 justify-center items-center">
 					{isLoading && (
 						<View className="items-center">
 							<ActivityIndicator />
@@ -169,6 +190,7 @@ const AdvertisementScreen = () => {
 					)}
 					{/* https://gateway.pinata.cloud/ipfs/QmfVvFKpNrZaXemtDSc37awY4kweGmTDREy6uvjGQTtHC7 */}
 					<Video
+						className="flex-1 w-full"
 						ref={video}
 						source={{ uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
 						onLoadStart={handleLoadStart}
@@ -176,8 +198,8 @@ const AdvertisementScreen = () => {
 						onError={handleError}
 						resizeMode="contain"
 						useNativeControls
-						isLooping
-						onPlaybackStatusUpdate={setStaus}
+						isLooping={false}
+						onPlaybackStatusUpdate={handlePlaybackStatusUpdate}
 					/>
 				</View>
 
@@ -212,7 +234,10 @@ const AdvertisementScreen = () => {
 
 				</View>
 
-				<RewardButton />
+				<RewardButton
+					onPress={handleRewardButtonClick}
+					disable={!isVideoEnded}
+				/>
 
 
 
