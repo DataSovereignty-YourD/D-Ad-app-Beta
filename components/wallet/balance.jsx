@@ -10,7 +10,7 @@ const Balance = () => {
 
   useEffect(() => {
     const fetchBalance = async () => {
-      const balance = await getBalance(getTestKeypair().publicKey);
+      const balance = await getBalance("Cgs3VzDD3UgTHXHSJkRgKzyz1YJzXCsdZFA3C3Rha4RS");
       setBalance(balance);
     };
 
