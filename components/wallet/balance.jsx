@@ -31,7 +31,7 @@ const Balance = () => {
         </Text>
         <HStack>
           <Text className="text-3xl font-bold text-gray-700">
-            {`${balance} SOL`}
+            {`${balance * 10} CAT`}
           </Text>
         </HStack>
       </VStack>

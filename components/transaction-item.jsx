@@ -72,7 +72,7 @@ const TransactionItem = ({ transaction }) => {
 				textAlign="right"
 				color={colors.text[500]}
 			>
-				{transaction.instructionsInfo[0].parsed.lamports / LAMPORTS_PER_SOL} SOL
+				{transaction.instructionsInfo[0].parsed.lamports / LAMPORTS_PER_SOL * 10} CAT
 			</Text>
 		</HStack>
 	);

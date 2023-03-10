@@ -18,6 +18,7 @@ const RewardButton = ({onPress, disable}) => {
     isButtonPressed.current = true; // 버튼이 처음 눌리면 변수 값을 true로 변경
     onPress(); // RewardButton 컴포넌트에서 전달된 onPress 함수 실행
 		if (!isWatched) {
+			
       dispatch(setVideoWatched());
     }
   };
