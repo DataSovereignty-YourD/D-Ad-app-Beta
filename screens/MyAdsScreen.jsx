@@ -16,15 +16,6 @@ const HomeScreen = () => {
 		});
 	}, []);
 
-	const handleButtonClick = () => {
-    navigation.navigate('Main', {
-      screen: 'Wallet',
-      params: {
-        screen: 'Wallet',
-        initial: false,
-      },
-    });
-  };
 
 	return (
 		<SafeAreaView className="bg-white pt-5">
@@ -53,8 +44,6 @@ const HomeScreen = () => {
 				</View>
 
 			</View>
-
-			<Button title="Go to Wallet Screen" onPress={handleButtonClick} />
 
 
 			{/* {Body} */}
