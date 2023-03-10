@@ -13,7 +13,6 @@ const ProfileScreen = () => {
 
 	const [savedData, setSavedData] = useState('');
 
-	const [location, setLocation] = useState(null);
 	const webViewRef = useRef(null);
 
 	const handleReload = () => {
@@ -52,11 +51,12 @@ const ProfileScreen = () => {
 `;
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const data = await AsyncStorage.getItem('myData');
-			setSavedData(data);
-		};
-		fetchData();
+		// const fetchData = async () => {
+		// 	const data = await AsyncStorage.getItem('myData');
+		// 	setSavedData(data);
+		// };
+		// fetchData();
+		setSavedData('');
 	}, []);
 
 

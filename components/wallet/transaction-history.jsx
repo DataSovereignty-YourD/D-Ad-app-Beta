@@ -6,18 +6,21 @@ import { useEffect, useState } from 'react';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { getTransactions } from '../../api';
+import { ActivityIndicator } from 'react-native';
 
 
 const TransactionHistory = () => {
 	const { colors } = useTheme();
 	const navigation = useNavigation();
 	const [transactionList, setTransactionList] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchTransactions = async (numTx) => {
 			const tx = await getTransactions(numTx, "Cgs3VzDD3UgTHXHSJkRgKzyz1YJzXCsdZFA3C3Rha4RS");
 
 			setTransactionList(tx.transactions);
+			setIsLoading(false);
 		};
 
 		fetchTransactions(5);
@@ -48,14 +51,18 @@ const TransactionHistory = () => {
 					Show all
 				</Button>
 			</HStack>
-			<VStack>
-				{transactionList.map(transaction => (
-					<TransactionItem
-						key={transaction.transactionNo}
-						transaction={transaction}
-						/>
-				))}
-			</VStack>
+			{isLoading ? (
+				<VStack px={4} py={6} justifyContent="center">
+					<ActivityIndicator size="large" />
+				</VStack>
+
+			) : (
+				<VStack>
+					{transactionList.map((transaction) => (
+						<TransactionItem key={transaction.transactionNo} transaction={transaction} />
+					))}
+				</VStack>
+			)}
 		</VStack>
 	);
 };
