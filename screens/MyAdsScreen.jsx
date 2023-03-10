@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, View, Image, TextInput, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { SafeAreaView, Text, View, Image, TextInput, ScrollView, TouchableOpacity, ActivityIndicator, Button } from 'react-native'
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Icon } from '@rneui/base';
@@ -15,6 +15,16 @@ const HomeScreen = () => {
 			headerShown: false,
 		});
 	}, []);
+
+	const handleButtonClick = () => {
+    navigation.navigate('Main', {
+      screen: 'Wallet',
+      params: {
+        screen: 'Wallet',
+        initial: false,
+      },
+    });
+  };
 
 	return (
 		<SafeAreaView className="bg-white pt-5">
@@ -43,6 +53,8 @@ const HomeScreen = () => {
 				</View>
 
 			</View>
+
+			<Button title="Go to Wallet Screen" onPress={handleButtonClick} />
 
 
 			{/* {Body} */}

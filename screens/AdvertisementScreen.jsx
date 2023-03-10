@@ -56,11 +56,11 @@ const AdvertisementScreen = () => {
 	};
 
 	const handlePlaybackStatusUpdate = (status) => {
-    setStaus(status);
-    if (status.didJustFinish) {
-      setIsVideoEnded(true);
-    }
-  };
+		setStaus(status);
+		if (status.didJustFinish) {
+			setIsVideoEnded(true);
+		}
+	};
 
 	const handleRewardButtonClick = () => {
 		if (isVideoEnded) {
@@ -76,18 +76,26 @@ const AdvertisementScreen = () => {
 					{
 						text: 'Yes',
 						onPress: () => {
-							navigation.navigate('Wallet', {imgUrl, title});
+							navigation.navigate('Main', {
+								screen: 'Wallet',
+								params: {
+									screen: 'Wallet',
+									initial: false,
+									imgUrl,
+									title,
+								},
+							});
 						},
 					},
 				]
 			);
 		} else {
 			Alert.alert('Warning!', 'You can only get it if you watch the video.', [
-				{ text: 'Check', onPress: () => console.log('Check pressed') },  
+				{ text: 'Check', onPress: () => console.log('Check pressed') },
 			]);
 		}
 	};
-	
+
 
 	const {
 		params: {
@@ -174,9 +182,9 @@ const AdvertisementScreen = () => {
 						</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity 
-					className="flex-row items-center space-x-2 p-4 border-y border-gray-300"
-					onPress={() => navigation.navigate("Delivery")}
+					<TouchableOpacity
+						className="flex-row items-center space-x-2 p-4 border-y border-gray-300"
+						onPress={() => navigation.navigate("Delivery")}
 					>
 						<Icon
 							name='location-pin'
