@@ -9,14 +9,17 @@ import ProfileScreen from '../screens/ProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
 import AdvertisementScreen from '../screens/AdvertisementScreen';
 import MapScreen from '../screens/MapScreen';
+import WalletScreen from '../screens/WalletScreen';
 
 const Rootstack = createNativeStackNavigator();
+const Walletstack = createNativeStackNavigator();
 
 const RootNavigator = () => {
 	return (
 		<Rootstack.Navigator>
 			<Rootstack.Group>
 				<Rootstack.Screen name='Main' component={TabNavigator} />
+				<Walletstack.Screen name='Wallet' component={WalletScreen} />
 			</Rootstack.Group>
 
 			<Rootstack.Group
@@ -26,7 +29,7 @@ const RootNavigator = () => {
 				}}>
 				<Rootstack.Screen
 					name='Basket'
-					component={BasketScreen}/>
+					component={BasketScreen} />
 			</Rootstack.Group>
 
 			<Rootstack.Group
@@ -36,20 +39,18 @@ const RootNavigator = () => {
 				}}>
 				<Rootstack.Screen
 					name='PreparingOrderScreen'
-					component={PreparingOrderScreen}/>
-				<Rootstack.Screen 
+					component={PreparingOrderScreen} />
+				<Rootstack.Screen
 					name='Delivery'
-					component={LocationScreen}/>
+					component={LocationScreen} />
 			</Rootstack.Group>
 
 			<Rootstack.Group>
-				<Rootstack.Screen name='My Ads' component={HomeScreen}/>
-				<Rootstack.Screen name='Advertisement' component={AdvertisementScreen}/>
-				<Rootstack.Screen name='Profile' component={ProfileScreen}/>
+				<Rootstack.Screen name='My Ads' component={HomeScreen} />
+				<Rootstack.Screen name='Advertisement' component={AdvertisementScreen} />
+				<Rootstack.Screen name='Profile' component={ProfileScreen} />
 				<Rootstack.Screen name='MapTest' component={MapScreen} />
 			</Rootstack.Group>
-
-	
 
 
 		</Rootstack.Navigator>

@@ -4,14 +4,29 @@ import Balance from '../components/wallet/balance';
 import ServicesGrid from '../components/wallet/services-grid';
 import TransactionHistory from '../components/wallet/transaction-history';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import { useLayoutEffect } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useEffect, useLayoutEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import MintToken from '../api';
+import { selectAdvertisement, setAdvertisement } from '../features/advertisementSlice';
+import { useDispatch } from 'react-redux';
 
 export const WalletScreen = () => {
 
 	const navigation = useNavigation();
+	const dispatch = useDispatch(selectAdvertisement);
+	const { params: { id=123, imgUrl=require('../assets/images/sushi.jpg'), title='Yo! Sushi!' } = {}} = useRoute();
+	
+	useEffect(() => {
+		dispatch(
+			setAdvertisement({
+				id,
+				imgUrl,
+				title,
+			})
+		)
+	}, []);
+
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
@@ -40,7 +55,7 @@ export const WalletScreen = () => {
 			>
 				<Balance />
 				<ServicesGrid />
-				<TransactionHistory />
+				<TransactionHistory imgUrl={imgUrl} title={title}/>
 
 			</ScrollView>
 

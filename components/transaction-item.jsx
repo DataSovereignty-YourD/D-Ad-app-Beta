@@ -8,30 +8,9 @@ import UberIcon from '../assets/images/uber.jpeg';
 import { LAMPORTS_PER_SOL } from '../api';
 
 
-const TransactionItem = ({ transaction }) => {
+const TransactionItem = ({ transaction, imgUrl, title }) => {
 	const { colors } = useTheme();
 
-
-	const renderIcon = useCallback(() => {
-		const props = {
-			alt: TRANSACTIONS.icon,
-			width: '100%',
-			height: '100%',
-		};
-
-		switch (TRANSACTIONS.icon) {
-			case 'amazon':
-				return <Image source={AmazonIcon} {...props} />;
-			case 'netflix':
-				return <Image source={NetflixIcon} {...props} />;
-			case 'spotify':
-				return <Image source={SpotifyIcon} {...props} />;
-			case 'uber':
-				return <Image source={UberIcon} {...props} />;
-			default:
-				return null;
-		}
-	}, [TRANSACTIONS.icon]);
 
 	return (
 		<HStack alignItems="center" py={3}>
@@ -44,7 +23,7 @@ const TransactionItem = ({ transaction }) => {
 				overflow="hidden"
 				mr={4}
 			>
-				{renderIcon()}
+				<Image size={100} source={imgUrl} />
 			</Box>
 			<VStack>
 				<HStack>
@@ -55,9 +34,9 @@ const TransactionItem = ({ transaction }) => {
 						color={colors.text[500]}
 					>
 						{
-							transaction.status == 'finalized' ? "Reward Complete" :
-							transaction.status == 'error' ? "Transaction Error" :
-							"Search for this transcription."
+							transaction.status == 'finalized' ? "Complete" :
+								transaction.status == 'error' ? "Transaction Error" :
+									"Search for this transcription."
 						}
 					</Text>
 				</HStack>
@@ -65,6 +44,15 @@ const TransactionItem = ({ transaction }) => {
 					{transaction.time.toLocaleString('en-US')}
 				</Text>
 			</VStack>
+			<Text
+				fontSize="xs"
+				fontWeight="bold"
+				flex={1}
+				textAlign="right"
+				color={colors.text[500]}
+			>
+				{title}
+			</Text>
 			<Text
 				fontSize="md"
 				fontWeight="bold"

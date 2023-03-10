@@ -19,54 +19,6 @@ const AdvertisementScreen = () => {
 	const [staus, setStaus] = useState({});
 	const [isVideoEnded, setIsVideoEnded] = useState(false);
 
-	const handleLoadStart = () => {
-		setIsLoading(true);
-	};
-
-	const handleLoad = () => {
-		setIsLoading(false);
-	};
-
-	const handleError = () => {
-		setIsLoading(false);
-		console.log('Error loading video');
-	};
-
-	const handlePlaybackStatusUpdate = (status) => {
-    setStaus(status);
-    if (status.didJustFinish) {
-      setIsVideoEnded(true);
-    }
-  };
-
-	const handleRewardButtonClick = () => {
-		if (isVideoEnded) {
-			Alert.alert('Congratulations!', 'You have received a 10CAT!', [
-				{ text: 'Check', onPress: () => console.log('Check pressed') },  
-			]);
-		} else {
-			Alert.alert('Warning!', 'You can only get it if you watch the video.', [
-				{ text: 'Check', onPress: () => console.log('Check pressed') },  
-			]);
-		}
-	};
-	
-
-	const {
-		params: {
-			id,
-			imgUrl,
-			title,
-			rating,
-			genre,
-			address,
-			short_description,
-			dishes,
-			long,
-			lat,
-		},
-	} = useRoute();
-
 	useEffect(() => {
 		dispatch(
 			setAdvertisement({
@@ -90,6 +42,70 @@ const AdvertisementScreen = () => {
 		});
 	}), [];
 
+	const handleLoadStart = () => {
+		setIsLoading(true);
+	};
+
+	const handleLoad = () => {
+		setIsLoading(false);
+	};
+
+	const handleError = () => {
+		setIsLoading(false);
+		console.log('Error loading video');
+	};
+
+	const handlePlaybackStatusUpdate = (status) => {
+    setStaus(status);
+    if (status.didJustFinish) {
+      setIsVideoEnded(true);
+    }
+  };
+
+	const handleRewardButtonClick = () => {
+		if (isVideoEnded) {
+			Alert.alert(
+				'Congratulations!',
+				'You have received a 10CAT! Would you like to view the transaction history?',
+				[
+					{
+						text: 'No',
+						onPress: () => navigation.goBack(),
+						style: 'cancel',
+					},
+					{
+						text: 'Yes',
+						onPress: () => {
+							navigation.navigate('Wallet', {imgUrl, title});
+						},
+					},
+				]
+			);
+		} else {
+			Alert.alert('Warning!', 'You can only get it if you watch the video.', [
+				{ text: 'Check', onPress: () => console.log('Check pressed') },  
+			]);
+		}
+	};
+	
+
+	const {
+		params: {
+			id,
+			imgUrl,
+			title,
+			rating,
+			genre,
+			address,
+			short_description,
+			dishes,
+			long,
+			lat,
+		},
+	} = useRoute();
+
+
+
 
 	return (
 		<SafeAreaView >
@@ -97,9 +113,7 @@ const AdvertisementScreen = () => {
 			<ScrollView>
 				<View className="relative">
 					<Image
-						source={{
-							uri: imgUrl,
-						}}
+						source={imgUrl}
 						className="w-full h-56 bg-gray-300 p-4"
 					/>
 					<TouchableOpacity

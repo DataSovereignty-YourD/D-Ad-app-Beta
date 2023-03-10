@@ -36,9 +36,7 @@ const AdCard = ({
 			className=" px-4 "
 		>
 			<Image
-				source={{
-					uri: imgUrl,
-				}}
+				source={imgUrl}
 				className="h-36 w-full rounded-sm"
 			/>
 

@@ -9,7 +9,7 @@ import { getTransactions } from '../../api';
 import { ActivityIndicator } from 'react-native';
 
 
-const TransactionHistory = () => {
+const TransactionHistory = ({ imgUrl, title }) => {
 	const { colors } = useTheme();
 	const navigation = useNavigation();
 	const [transactionList, setTransactionList] = useState([]);
@@ -59,7 +59,12 @@ const TransactionHistory = () => {
 			) : (
 				<VStack>
 					{transactionList.map((transaction) => (
-						<TransactionItem key={transaction.transactionNo} transaction={transaction} />
+						<TransactionItem
+							key={transaction.signature}
+							transaction={transaction}
+							imgUrl={imgUrl}
+							title={title}
+						/>
 					))}
 				</VStack>
 			)}

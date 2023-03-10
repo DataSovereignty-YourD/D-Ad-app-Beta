@@ -80,7 +80,7 @@ const HomeScreen = () => {
 
 				<AdCard
 					id={123}
-					imgUrl="https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
+					imgUrl={require('../assets/images/sushi.jpg')}
 					title="Yo! Sushi"
 					rating={4.5}
 					genre="Japanese"
@@ -93,7 +93,7 @@ const HomeScreen = () => {
 
 				<AdCard
 					id={123}
-					imgUrl="https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
+					imgUrl={require('../assets/images/sushi.jpg')}
 					title="Yo! Sushi"
 					rating={4.5}
 					genre="Japanese"
@@ -106,7 +106,7 @@ const HomeScreen = () => {
 
 				<AdCard
 					id={123}
-					imgUrl="https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
+					imgUrl={require('../assets/images/sushi.jpg')}
 					title="Yo! Sushi"
 					rating={4.5}
 					genre="Japanese"
