@@ -96,10 +96,14 @@ const publicKeyFromString = (publicKeyString) => {
 const requestAirdrop = async (publicKeyString) => {
 	const connection = createConnection();
 
-	await connection.requestAirdrop(
-		publicKeyFromString(publicKeyString),
-		LAMPORTS_PER_SOL
-	);
+	try {
+    await connection.requestAirdrop(
+      publicKeyFromString(publicKeyString),
+      LAMPORTS_PER_SOL
+    );
+  } catch (err) {
+    throw new Error(`Failed to request airdrop: ${err.message}`);
+  }
 
 };
 

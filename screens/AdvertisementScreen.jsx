@@ -66,7 +66,12 @@ const AdvertisementScreen = () => {
 
 	const handleRewardButtonClick = async () => {
 		if (isVideoEnded) {
-			await requestAirdrop(account);
+			try {
+        await requestAirdrop(account);
+      } catch (err) {
+        Alert.alert('Error', err.message);
+        return;
+      }
 
 			Alert.alert(
 				'Congratulations!',

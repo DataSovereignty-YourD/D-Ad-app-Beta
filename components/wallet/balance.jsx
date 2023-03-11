@@ -4,10 +4,13 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import { account } from '../../constants/account';
+import { useSelector } from 'react-redux';
+import { selectTransactions } from '../../features/transactionSlice';
 
 const Balance = () => {
   const { colors } = useTheme();
 	const [balance, setBalance] = useState(0);
+	const transactions = useSelector(selectTransactions);
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -16,7 +19,7 @@ const Balance = () => {
     };
 
     fetchBalance();
-  }, []);
+  }, [transactions]);
 
   return (
     <HStack

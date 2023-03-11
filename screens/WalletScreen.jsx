@@ -30,7 +30,6 @@ export const WalletScreen = () => {
 				title,
 			})
 		)
-
 		
 	}, []);
 
@@ -41,8 +40,6 @@ export const WalletScreen = () => {
 		}
 		const tx = await getTransactions(transactions.length, account);
 		if (tx.transactions.length !== transactions.length) {
-			console.log(tx.transactions.length);
-			console.log(transactions.length);
 			dispatch(setTransactions(tx.transactions));
 		} 
 		setIsRefreshing(false);

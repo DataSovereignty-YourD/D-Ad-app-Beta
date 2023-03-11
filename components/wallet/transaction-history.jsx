@@ -35,7 +35,7 @@ const TransactionHistory = ({ imgUrl, title }) => {
 		};
 
 		fetchTransactions(5);
-	}, [])
+	}, [transactionList])
 
 
 
