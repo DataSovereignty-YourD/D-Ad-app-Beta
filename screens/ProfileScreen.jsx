@@ -1,4 +1,4 @@
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, TextInput } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,59 +6,44 @@ import { useNavigation } from '@react-navigation/native';
 import LocationPermission from '../components/LocationPermission';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
+import { UrlTile } from 'react-native-maps';
 
 
 const ProfileScreen = () => {
 	const navigation = useNavigation();
 
-	const [savedData, setSavedData] = useState('');
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const webViewRef = useRef(null);
 
-	const webViewRef = useRef(null);
+  const handleSearch = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permission to access location was denied');
+      return;
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    const currentLocation = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+			timestamp: location.timestamp,
+    };
+    console.log(currentLocation);
+    setCurrentLocation(currentLocation);
+  };
 
-	const handleReload = () => {
-		if (webViewRef.current) {
-			webViewRef.current.reload();
-
-			const fetchLocation = async () => {
-				// 현재 위치 정보 가져오기
-				let { status } = await Location.requestForegroundPermissionsAsync();
-				if (status !== 'granted') {
-					console.log('Permission to access location was denied');
-					return;
-				}
-				let location = await Location.getCurrentPositionAsync({});
-				const currentLocation = {
-					latitude: location.coords.latitude,
-					longitude: location.coords.longitude
-				};
-				// myData 키로 위치 정보를 저장
-				const data = JSON.stringify({ currentLocation });
-				await AsyncStorage.setItem('myData', data);
-				setSavedData(data);
-				console.log('fetch', data);
-			};
-
-			fetchLocation();
-		}
-
-	};
-
-	const injectedJavaScript = `
-	window.onload = function() {
-		document.getElementById('current-location').innerHTML = 'Current Location: ${JSON.stringify(savedData)}';
-	}
-	
-`;
-
-	useEffect(() => {
-		// const fetchData = async () => {
-		// 	const data = await AsyncStorage.getItem('myData');
-		// 	setSavedData(data);
-		// };
-		// fetchData();
-		setSavedData('');
-	}, []);
-
+  const handleInject = () => {
+    if (!currentLocation || !webViewRef.current) {
+      return;
+    }
+    const { latitude, longitude, timestamp } = currentLocation;
+    const injectedJavaScript = `
+      const searchBox = document.getElementById('tsf').querySelector('input[name="q"]');
+      if (searchBox) {
+        searchBox.value = "${latitude}, ${longitude}, ${timestamp}";
+      }
+    `;
+    webViewRef.current.injectJavaScript(injectedJavaScript);
+  };
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
@@ -79,12 +64,14 @@ const ProfileScreen = () => {
 			</View>
 			<WebView
 				ref={webViewRef}
-				source={require('../assets/webview/index.html')}
-				injectedJavaScript={injectedJavaScript}
+				source={{ url: "https://www.google.com" }}
+				onMessage={(event) => { }}
 			/>
 			<View>
-				<Text>Saved data: {savedData}</Text>
-				<Button title="Reload" onPress={handleReload} />
+
+				<Button title='Get Current Location' onPress={handleSearch} />
+				<Button title="Search" onPress={handleInject} />
+
 			</View>
 
 		</SafeAreaView>
