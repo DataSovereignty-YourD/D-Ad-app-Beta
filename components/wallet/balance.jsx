@@ -20,13 +20,13 @@ const Balance = () => {
   return (
     <HStack
       px={4}
-			pt={8}
+			pt={6}
       pb={6}
       alignItems="center"
       justifyContent="flex-start"
     >
       <VStack>
-        <Text className="font-xs font-bold">
+        <Text className="text-xl font-bold">
           Total balance
         </Text>
         <HStack>

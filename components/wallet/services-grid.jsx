@@ -94,7 +94,7 @@ const ServiceItem = ({ icon, title }) => {
 
 const ServicesGrid = () => {
   return (
-    <VStack px={4} my={3} width="full">
+    <VStack px={4} width="full">
       <HStack width="full" justifyContent="space-evenly">
         {SERVICES_LINE_1.map(item => (
           <ServiceItem key={item.id} {...item} />

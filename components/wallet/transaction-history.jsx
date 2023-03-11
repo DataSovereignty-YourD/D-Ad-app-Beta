@@ -29,9 +29,9 @@ const TransactionHistory = ({ imgUrl, title }) => {
 
 
 	return (
-		<VStack px={4} py={6}>
+		<VStack px={4} py={4}>
 			<HStack alignItems="center" justifyContent="space-between" mb={4} mt={1}>
-				<Heading className="text-xl font-bold">
+				<Heading className="text-xl font-bold pb-2">
 					Recent rewards
 				</Heading>
 				<Button
