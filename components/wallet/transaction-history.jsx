@@ -31,7 +31,7 @@ const TransactionHistory = ({ imgUrl, title }) => {
 	return (
 		<VStack px={4} py={6}>
 			<HStack alignItems="center" justifyContent="space-between" mb={4} mt={1}>
-				<Heading fontSize="lg" color={colors.text[500]}>
+				<Heading className="text-xl font-bold">
 					Recent rewards
 				</Heading>
 				<Button
@@ -57,7 +57,7 @@ const TransactionHistory = ({ imgUrl, title }) => {
 				</VStack>
 
 			) : (
-				<VStack>
+				<VStack mx={-1} my={-2} space={2}>
 					{transactionList.map((transaction) => (
 						<TransactionItem
 							key={transaction.signature}

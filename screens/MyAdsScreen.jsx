@@ -5,6 +5,7 @@ import { Icon } from '@rneui/base';
 import Categeries from '../components/Categories';
 
 import AdCard from '../components/AdCard';
+import { VStack } from 'native-base';
 
 const HomeScreen = () => {
 
@@ -79,18 +80,7 @@ const HomeScreen = () => {
 					description="Why not support your loca restaurant tonight!"
 				/> */}
 
-				<AdCard
-					id={123}
-					imgUrl={require('../assets/images/sushi.jpg')}
-					title="Yo! Sushi"
-					rating={4.5}
-					genre="Japanese"
-					address="123 Main St"
-					short_description="This is a Test description"
-					dishes={[]}
-					long={127.060926}
-					lat={37.619774}
-				/>
+				<VStack mx={-1} space={2}>
 
 				<AdCard
 					id={123}
@@ -118,7 +108,21 @@ const HomeScreen = () => {
 					lat={37.619774}
 				/>
 
+				<AdCard
+					id={123}
+					imgUrl={require('../assets/images/sushi.jpg')}
+					title="Yo! Sushi"
+					rating={4.5}
+					genre="Japanese"
+					address="123 Main St"
+					short_description="This is a Test description"
+					dishes={[]}
+					long={127.060926}
+					lat={37.619774}
+				/>
+				</VStack>
 
+			
 			</ScrollView>
 		</SafeAreaView>
 	);
