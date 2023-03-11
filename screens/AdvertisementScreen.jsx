@@ -10,6 +10,8 @@ import { selectAdvertisement } from '../features/advertisementSlice'
 import RewardButton from '../components/RewardButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Video } from 'expo-av';
+import { requestAirdrop } from '../api';
+import { account } from '../constants/account';
 
 const AdvertisementScreen = () => {
 	const video = useRef(null);
@@ -62,8 +64,10 @@ const AdvertisementScreen = () => {
 		}
 	};
 
-	const handleRewardButtonClick = () => {
+	const handleRewardButtonClick = async () => {
 		if (isVideoEnded) {
+			await requestAirdrop(account);
+
 			Alert.alert(
 				'Congratulations!',
 				'You have received a 10CAT! Would you like to view the transaction history?',
@@ -184,7 +188,7 @@ const AdvertisementScreen = () => {
 
 					<TouchableOpacity
 						className="flex-row items-center space-x-2 p-4 border-y border-gray-300"
-						onPress={() => navigation.navigate("Delivery")}
+						onPress={() => navigation.navigate("Location")}
 					>
 						<Icon
 							name='location-pin'

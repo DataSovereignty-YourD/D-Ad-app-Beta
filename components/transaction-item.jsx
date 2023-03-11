@@ -1,10 +1,6 @@
 import { Box, HStack, Text, useTheme, VStack, Image } from 'native-base';
 import { useCallback } from 'react';
 import { TRANSACTIONS } from '../constants/transactions';
-import AmazonIcon from '../assets/images/amazon.jpeg';
-import NetflixIcon from '../assets/images/netflix.jpeg';
-import SpotifyIcon from '../assets/images/spotify.jpeg';
-import UberIcon from '../assets/images/uber.jpeg';
 import { LAMPORTS_PER_SOL } from '../api';
 
 
@@ -23,7 +19,7 @@ const TransactionItem = ({ transaction, imgUrl, title }) => {
 				overflow="hidden"
 				mr={4}
 			>
-				<Image size={100} source={imgUrl} />
+				<Image size={100} source={imgUrl} alt={title} />
 			</Box>
 			<VStack>
 				<HStack>

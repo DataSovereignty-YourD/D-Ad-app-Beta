@@ -29,14 +29,14 @@ const HomeScreen = () => {
 
 				<View className="flex-row ">
 					<View className="px-4">
-					<Icon
-						name='search1'
-						type='antdesign'
-						size={20}
-						
-					/>
+						<Icon
+							name='search1'
+							type='antdesign'
+							size={20}
+
+						/>
 					</View>
-					
+
 					<Icon
 						name='bell'
 						type='feather'
@@ -82,47 +82,47 @@ const HomeScreen = () => {
 
 				<VStack mx={-1} space={2}>
 
-				<AdCard
-					id={123}
-					imgUrl={require('../assets/images/sushi.jpg')}
-					title="Yo! Sushi"
-					rating={4.5}
-					genre="Japanese"
-					address="123 Main St"
-					short_description="This is a Test description"
-					dishes={[]}
-					long={127.060926}
-					lat={37.619774}
-				/>
+					<AdCard
+						id={123}
+						imgUrl={require('../assets/images/sushi.jpg')}
+						title="Yo! Sushi"
+						rating={4.5}
+						genre="Japanese"
+						address="123 Main St"
+						short_description="This is a Test description"
+						dishes={[]}
+						long={127.060926}
+						lat={37.619774}
+					/>
 
-				<AdCard
-					id={123}
-					imgUrl={require('../assets/images/sushi.jpg')}
-					title="Yo! Sushi"
-					rating={4.5}
-					genre="Japanese"
-					address="123 Main St"
-					short_description="This is a Test description"
-					dishes={[]}
-					long={127.060926}
-					lat={37.619774}
-				/>
+					<AdCard
+						id={123}
+						imgUrl={require('../assets/images/pasta.jpg')}
+						title="Benvenuto"
+						rating={4.8}
+						genre="Italy"
+						address="123 Main St"
+						short_description="This is a Test description"
+						dishes={[]}
+						long={127.018548}
+						lat={37.592699}
+					/>
 
-				<AdCard
-					id={123}
-					imgUrl={require('../assets/images/sushi.jpg')}
-					title="Yo! Sushi"
-					rating={4.5}
-					genre="Japanese"
-					address="123 Main St"
-					short_description="This is a Test description"
-					dishes={[]}
-					long={127.060926}
-					lat={37.619774}
-				/>
+					<AdCard
+						id={123}
+						imgUrl={require('../assets/images/sushi.jpg')}
+						title="Yo! Sushi"
+						rating={4.5}
+						genre="Japanese"
+						address="123 Main St"
+						short_description="This is a Test description"
+						dishes={[]}
+						long={127.060926}
+						lat={37.619774}
+					/>
 				</VStack>
 
-			
+
 			</ScrollView>
 		</SafeAreaView>
 	);

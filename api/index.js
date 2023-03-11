@@ -36,7 +36,7 @@ const getTransactions = async (numTx, publicKey) => {
 	const _publicKey = publicKeyFromString(publicKey);
 
   let transactionList = await connection.getSignaturesForAddress(_publicKey, {
-    limit: numTx,
+    limit: Math.min(numTx, 50), // limit 값을 numTx와 1000 중 작은 값으로 설정
   });
 
   let signatureList = transactionList.map(

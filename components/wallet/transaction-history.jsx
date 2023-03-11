@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { Button, Heading, HStack, useTheme, VStack } from 'native-base';
+import { Button, Heading, HStack, Text, useTheme, VStack } from 'native-base';
 import TransactionItem from '../transaction-item';
 import { TRANSACTIONS } from '../../constants/transactions';
 import { useEffect, useState } from 'react';
@@ -7,19 +7,30 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { getTransactions } from '../../api';
 import { ActivityIndicator } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTransactions, setTransactions } from '../../features/transactionSlice';
+import { account } from '../../constants/account';
 
 
 const TransactionHistory = ({ imgUrl, title }) => {
 	const { colors } = useTheme();
 	const navigation = useNavigation();
-	const [transactionList, setTransactionList] = useState([]);
+	// const [transactionList, setTransactionList] = useState([]);
+	const transactionList = useSelector(selectTransactions);
+	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchTransactions = async (numTx) => {
-			const tx = await getTransactions(numTx, "Cgs3VzDD3UgTHXHSJkRgKzyz1YJzXCsdZFA3C3Rha4RS");
+			const tx = await getTransactions(numTx, account);
 
-			setTransactionList(tx.transactions);
+			// setTransactionList(tx.transactions);
+			dispatch(setTransactions(
+				tx.transactions.map((transaction) => ({
+					...transaction,
+					time: transaction.time.toLocaleString('en-US'),
+				}))
+			));
 			setIsLoading(false);
 		};
 
@@ -31,7 +42,7 @@ const TransactionHistory = ({ imgUrl, title }) => {
 	return (
 		<VStack px={4} py={4}>
 			<HStack alignItems="center" justifyContent="space-between" mb={4} mt={1}>
-				<Heading className="text-xl font-bold pb-2">
+				<Heading className="text-xl font-bold">
 					Recent rewards
 				</Heading>
 				<Button
@@ -55,19 +66,25 @@ const TransactionHistory = ({ imgUrl, title }) => {
 				<VStack px={4} py={6} justifyContent="center">
 					<ActivityIndicator size="large" />
 				</VStack>
-
 			) : (
 				<VStack mx={-1} my={-2} space={2}>
-					{transactionList.map((transaction) => (
-						<TransactionItem
-							key={transaction.signature}
-							transaction={transaction}
-							imgUrl={imgUrl}
-							title={title}
-						/>
-					))}
+					{transactionList.length > 0 ? (
+						transactionList.map((transaction) => (
+							<TransactionItem
+								key={transaction.signature}
+								transaction={transaction}
+								imgUrl={imgUrl}
+								title={title}
+							/>
+						))
+					) : (
+						<VStack px={4} py={6}>
+							<Text className="text-xl text-gray-500 text-center">No rewards found</Text>
+						</VStack>
+					)}
 				</VStack>
 			)}
+
 		</VStack>
 	);
 };
