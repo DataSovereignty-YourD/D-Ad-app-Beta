@@ -46,7 +46,7 @@ const AdCard = ({
 			className=" px-4 "
 		>
 			<Image
-				source={imgUrl}
+				source={{uri:`https://gateway.pinata.cloud/ipfs/${imgUrl}`}}
 				className="h-36 w-full rounded-sm"
 			/>
 
@@ -60,7 +60,7 @@ const AdCard = ({
 						size={22}
 					/>
 					<Text className="text-xs text-gray-400">
-						<Text className="text-green-500">{rating}</Text> - {genre}
+						<Text className="text-green-500">{rating}</Text> - {genre }
 					</Text>
 				</View>
 
