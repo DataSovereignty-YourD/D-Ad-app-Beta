@@ -7,7 +7,7 @@ import Categeries from '../components/Categories';
 import AdCard from '../components/AdCard';
 import { VStack } from 'native-base';
 
-const HomeScreen = () => {
+const MyAdsScreen = () => {
 
 	const navigation = useNavigation();
 
@@ -85,7 +85,7 @@ const HomeScreen = () => {
 					<AdCard
 						id={123}
 						imgUrl={require('../assets/images/sushi.jpg')}
-						title="Yo! Sushi"
+						title="Yoshi! Sushi"
 						rating={4.5}
 						genre="Food"
 						address="123 Main St"
@@ -93,10 +93,11 @@ const HomeScreen = () => {
 						dishes={[]}
 						long={127.060926}
 						lat={37.619774}
+						reward={10}
 					/>
 
 					<AdCard
-						id={123}
+						id={1234}
 						imgUrl={require('../assets/images/pasta.jpg')}
 						title="Benvenuto"
 						rating={4.8}
@@ -106,10 +107,11 @@ const HomeScreen = () => {
 						dishes={[]}
 						long={127.018548}
 						lat={37.592699}
+						reward={5}
 					/>
 
 					<AdCard
-						id={123}
+						id={12345}
 						imgUrl={require('../assets/images/bread.jpg')}
 						title="BUBA Bakery"
 						rating={4.5}
@@ -119,6 +121,7 @@ const HomeScreen = () => {
 						dishes={[]}
 						long={127.060926}
 						lat={37.619774}
+						reward={15}
 					/>
 				</VStack>
 
@@ -128,4 +131,4 @@ const HomeScreen = () => {
 	);
 };
 
-export default HomeScreen
+export default MyAdsScreen

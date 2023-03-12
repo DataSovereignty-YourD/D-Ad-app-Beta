@@ -9,7 +9,7 @@ const TransactionItem = ({ transaction, imgUrl, title }) => {
 
 
 	return (
-		<HStack alignItems="center" py={3} px={3} backgroundColor="white">
+		<HStack alignItems="center" py={3} px={3} backgroundColor="white" rounded={12}>
 			<Box
 				style={{ width: 60, height: 60 }}
 				size="full"

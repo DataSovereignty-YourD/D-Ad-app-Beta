@@ -2,6 +2,8 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { Icon } from '@rneui/base'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { setAdvertisement } from '../features/advertisementSlice'
 
 const AdCard = ({
 	id,
@@ -14,25 +16,33 @@ const AdCard = ({
 	dishes,
 	long,
 	lat,
+	reward
 }) => {
-	const navigation = useNavigation();
+	const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const handleAdCardPress = () => {
+    dispatch(
+      setAdvertisement({
+        id,
+        imgUrl,
+        title,
+        rating,
+        genre,
+        address,
+        short_description,
+        dishes,
+        long,
+        lat,
+				reward,
+      })
+    );
+    navigation.navigate('Advertisement');
+  };
 
 	return (
 		<TouchableOpacity
-			onPress={() => {
-				navigation.navigate("Advertisement", {
-					id,
-					imgUrl,
-					title,
-					rating,
-					genre,
-					address,
-					short_description,
-					dishes,
-					long,
-					lat,
-				})
-			}}
+			onPress={handleAdCardPress}
 			className=" px-4 "
 		>
 			<Image

@@ -76,7 +76,7 @@ return (
 		>
 			<Balance />
 			<ServicesGrid />
-			<TransactionHistory imgUrl={imgUrl} title={title} />
+			<TransactionHistory id={id} imgUrl={imgUrl} title={title} />
 			<View className="pb-40"/>
 		</ScrollView>
 

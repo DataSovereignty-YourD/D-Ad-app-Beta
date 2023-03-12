@@ -12,6 +12,7 @@ const initialState = {
 		dishes: null,
 		long: null,
 		lat: null,
+		reward: null,
 	}
 }
 

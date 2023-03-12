@@ -12,7 +12,7 @@ import { selectTransactions, setTransactions } from '../../features/transactionS
 import { account } from '../../constants/account';
 
 
-const TransactionHistory = ({ imgUrl, title }) => {
+const TransactionHistory = ({ id, imgUrl, title }) => {
 	const { colors } = useTheme();
 	const navigation = useNavigation();
 	// const [transactionList, setTransactionList] = useState([]);
@@ -73,8 +73,8 @@ const TransactionHistory = ({ imgUrl, title }) => {
 							<TransactionItem
 								key={transaction.signature}
 								transaction={transaction}
-								imgUrl={imgUrl}
-								title={title}
+								imgUrl={id === 123 ? require('../../assets/images/sushi.jpg') : imgUrl}
+								title={id === 123 ? 'Yo! Sushi!': title}
 							/>
 						))
 					) : (
