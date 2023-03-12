@@ -58,6 +58,7 @@ const TransactionHistory = ({ id, imgUrl, title }) => {
 					}}
 					p={0}
 					onPress={() => navigation.navigate(StackRoutes.Transactions)}
+					disabled={true}
 				>
 					Show all
 				</Button>
