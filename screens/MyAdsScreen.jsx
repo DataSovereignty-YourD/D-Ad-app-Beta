@@ -87,7 +87,7 @@ const HomeScreen = () => {
 						imgUrl={require('../assets/images/sushi.jpg')}
 						title="Yo! Sushi"
 						rating={4.5}
-						genre="Japanese"
+						genre="Food"
 						address="123 Main St"
 						short_description="This is a Test description"
 						dishes={[]}
@@ -100,7 +100,7 @@ const HomeScreen = () => {
 						imgUrl={require('../assets/images/pasta.jpg')}
 						title="Benvenuto"
 						rating={4.8}
-						genre="Italy"
+						genre="Food"
 						address="123 Main St"
 						short_description="This is a Test description"
 						dishes={[]}
@@ -110,10 +110,10 @@ const HomeScreen = () => {
 
 					<AdCard
 						id={123}
-						imgUrl={require('../assets/images/sushi.jpg')}
-						title="Yo! Sushi"
+						imgUrl={require('../assets/images/bread.jpg')}
+						title="BUBA Bakery"
 						rating={4.5}
-						genre="Japanese"
+						genre="Dessert"
 						address="123 Main St"
 						short_description="This is a Test description"
 						dishes={[]}
