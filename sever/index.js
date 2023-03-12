@@ -1,8 +1,10 @@
 
 const solanaWeb3 = require("@solana/web3.js");
-
+const splToken = require("@solana/spl-token");
 
 const LAMPORTS_PER_SOL = solanaWeb3.LAMPORTS_PER_SOL;
+const payer = splToken.Keypair.generate();
+const mintAuthority = splToken.Keypair.generate();
 
 const createConnection = () => {
 	return new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("devnet"));
@@ -32,51 +34,51 @@ const getBalance = async (publicKey) => {
 };
 
 const getTransactions = async (numTx, publicKey) => {
-  const connection = createConnection();
+	const connection = createConnection();
 
 	const _publicKey = publicKeyFromString(publicKey);
 
-  let transactionList = await connection.getSignaturesForAddress(_publicKey, {
-    limit: numTx,
-  });
+	let transactionList = await connection.getSignaturesForAddress(_publicKey, {
+		limit: numTx,
+	});
 
-  let signatureList = transactionList.map(
-    (transaction) => transaction.signature
-  );
-  let transactionDetails = await connection.getParsedTransactions(
-    signatureList
-  );
+	let signatureList = transactionList.map(
+		(transaction) => transaction.signature
+	);
+	let transactionDetails = await connection.getParsedTransactions(
+		signatureList
+	);
 
-  const result = {
-    numTransactions: transactionList.length,
-    transactions: [],
-  };
+	const result = {
+		numTransactions: transactionList.length,
+		transactions: [],
+	};
 
-  transactionList.forEach((transaction, i) => {
-    const date = new Date(transaction.blockTime * 1000);
-    const transactionInstructions =
-      transactionDetails[i].transaction.message.instructions;
+	transactionList.forEach((transaction, i) => {
+		const date = new Date(transaction.blockTime * 1000);
+		const transactionInstructions =
+			transactionDetails[i].transaction.message.instructions;
 
-    const tx = {
-      transactionNo: i + 1,
-      signature: transaction.signature,
-      time: date,
-      status: transaction.confirmationStatus,
-      instructionsInfo: [],
-    };
+		const tx = {
+			transactionNo: i + 1,
+			signature: transaction.signature,
+			time: date,
+			status: transaction.confirmationStatus,
+			instructionsInfo: [],
+		};
 
-    transactionInstructions.forEach((instruction, n) => {
-      tx.instructionsInfo.push({
-        parsed: instruction.parsed.info,
-      });
-    });
+		transactionInstructions.forEach((instruction, n) => {
+			tx.instructionsInfo.push({
+				parsed: instruction.parsed.info,
+			});
+		});
 
-    result.transactions.push(tx);
+		result.transactions.push(tx);
 		console.log(result)
-  });
+	});
 
 
-  return result;
+	return result;
 };
 
 const getSolanaPrice = async () => {
@@ -105,5 +107,24 @@ const requestAirdrop = async (publicKeyString) => {
 
 };
 
+const mintCATTo = async (destination, amount) => {
+	const connection = createConnection();
+	console.log(payer)
+	console.log(mintAuthority)
 
-getTransactions(3, "Gp6GAahzHrKWTzdGBVMpB4hTvyDmCaHZ1xaaxvzc7zAm");
+	try {
+		await splToken.mintTo({
+			connection: connection,
+			payer: payer, // 트렌젝션 송신자 계정
+			mint: publicKeyFromString("6V26iu4YCsCdHWhMpgUgyY3x79MdYALxAwsfKhUxbZFB"), // SPL 토큰 계정
+			destination: publicKeyFromString(destination), // 토큰을 받을 수신자 계정
+			authority: mintAuthority.publicKey,
+			amount: amount * LAMPORTS_PER_SOL,
+		})
+	} catch (err) {
+		throw new Error(`Failed to mint CAT: ${err.message}`);
+	}
+}
+
+mintCATTo("2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND", 10);
+

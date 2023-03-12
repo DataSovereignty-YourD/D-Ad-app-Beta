@@ -10,7 +10,7 @@ import { selectAdvertisement } from '../features/advertisementSlice'
 import RewardButton from '../components/RewardButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Video } from 'expo-av';
-import { requestAirdrop } from '../api';
+import { mintCATTo, requestAirdrop } from '../api';
 import { account } from '../constants/account';
 import { selectVideo, setVideo, setVideoWatched } from '../features/videoSlice';
 
@@ -85,6 +85,8 @@ const AdvertisementScreen = () => {
 			// 	setError(true)
 			//   return;
 			// }
+
+			// await mintCATTo("2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND", advertisement.reward);
 
 			Alert.alert(
 				'Congratulations!',

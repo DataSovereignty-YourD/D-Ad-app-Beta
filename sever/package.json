@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "@solana/spl-token": "^0.3.7",
+    "@solana/web3.js": "^1.73.3",
+    "@thirdweb-dev/sdk": "^3.10.3",
+    "express": "^4.18.2",
+    "ipfs-daemon": "^0.16.0"
   }
 }
