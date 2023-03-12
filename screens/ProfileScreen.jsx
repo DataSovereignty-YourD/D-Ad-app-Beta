@@ -44,9 +44,10 @@ const ProfileScreen = () => {
 		let injectedJavaScript = '';
 		searchTerms.forEach((term) => {
 			const distance = getDistance([37.592699, 127.018548], currentLocation);
+			console.log(distance);
 			injectedJavaScript += `
-			var input = document.getElementsByName('q')[0];
-			input.value += ' distance:${distance} ${searchTerm}';
+			var input = document.getElementById('CurrentLocationInput');
+			input.value += '${distance} ${searchTerm}';
 		`;
 		});
 		webViewRef.current.injectJavaScript(injectedJavaScript);
@@ -71,12 +72,12 @@ const ProfileScreen = () => {
 			</View>
 			<WebView
 				ref={webViewRef}
-				source={{ url: "https://www.google.com" }}
+				source={{ url: "https://yourd-makeproof.herokuapp.com/" }}
 				onMessage={(event) => { }}
 			/>
 			<View>
 				<Button title='Get Current Location' onPress={handleSearch} />
-				<Button title="Search" onPress={handleInject} />
+				<Button title="Make Proof" onPress={handleInject} />
 			</View>
 
 		</SafeAreaView>
