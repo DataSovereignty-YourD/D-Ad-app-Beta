@@ -47,7 +47,7 @@ const ProfileScreen = () => {
 			console.log(distance);
 			injectedJavaScript += `
 			var input = document.getElementById('CurrentLocationInput');
-			input.value += '${distance} ${searchTerm}';
+			input.value = '${distance} ${searchTerm}';
 		`;
 		});
 		webViewRef.current.injectJavaScript(injectedJavaScript);
