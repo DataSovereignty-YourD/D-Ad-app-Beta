@@ -121,7 +121,7 @@ const AdvertisementScreen = () => {
 			<ScrollView>
 				<View className="relative">
 					<Image
-						source={imgUrl}
+						source={{uri:`https://gateway.pinata.cloud/ipfs/${imgUrl}`}}
 						className="w-full h-56 bg-gray-300 p-4"
 					/>
 					<TouchableOpacity
@@ -214,7 +214,7 @@ const AdvertisementScreen = () => {
 					<Video
 						className="flex-1 w-full"
 						ref={video}
-						source={{ uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+						source={{ uri: `https://gateway.pinata.cloud/ipfs/${imgUrl}` }}
 						onLoadStart={handleLoadStart}
 						onLoad={handleLoad}
 						onError={handleError}
