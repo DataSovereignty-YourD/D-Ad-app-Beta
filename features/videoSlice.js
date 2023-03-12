@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   video: {
+		id: null,
 		isWatched: false,
 	}
 };
@@ -19,7 +20,7 @@ export const videoSlice = createSlice({
   }
 });
 
-export const { setVideoWatched } = videoSlice.actions;
+export const { setVideoWatched, setVideo } = videoSlice.actions;
 
 export const selectVideo = state => state.video.video;
 

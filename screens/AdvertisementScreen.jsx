@@ -10,31 +10,42 @@ import { selectAdvertisement } from '../features/advertisementSlice'
 import RewardButton from '../components/RewardButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Video } from 'expo-av';
+import { mintCATTo, requestAirdrop } from '../api';
+import { account } from '../constants/account';
+import { selectVideo, setVideo, setVideoWatched } from '../features/videoSlice';
 
 const AdvertisementScreen = () => {
 	const video = useRef(null);
 	const navigation = useNavigation();
-	const dispatch = useDispatch(selectAdvertisement);
+	const advertisement = useSelector(selectAdvertisement);
+	const videoState = useSelector(selectVideo);
+	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(true);
 	const [staus, setStaus] = useState({});
 	const [isVideoEnded, setIsVideoEnded] = useState(false);
+	const [isError, setError] = useState(false);
 
 	useEffect(() => {
 		dispatch(
-			setAdvertisement({
-				id,
-				imgUrl,
-				title,
-				rating,
-				genre,
-				address,
-				short_description,
-				dishes,
-				long,
-				lat,
-			})
-		)
+			setVideo({ id: advertisement.id })
+		);
 	}, [])
+
+	const {
+		params: {
+			id,
+			imgUrl,
+			title,
+			rating,
+			genre,
+			address,
+			short_description,
+			dishes,
+			long,
+			lat,
+			reward,
+		} = {},
+	} = useRoute();
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
@@ -58,12 +69,25 @@ const AdvertisementScreen = () => {
 	const handlePlaybackStatusUpdate = (status) => {
 		setStaus(status);
 		if (status.didJustFinish) {
-			setIsVideoEnded(true);
+			dispatch(setVideoWatched());
+			setIsVideoEnded(true); // 비디오 재생이 끝나면 isVideoEnded 값을 true로 업데이트
 		}
 	};
 
-	const handleRewardButtonClick = () => {
-		if (isVideoEnded) {
+
+
+	const handleRewardButtonClick = async () => {
+		if (videoState.isWatched) {
+			// try {
+			//   await requestAirdrop(account);
+			// } catch (err) {
+			//   Alert.alert('Error', err.message);
+			// 	setError(true)
+			//   return;
+			// }
+
+			// await mintCATTo("2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND", advertisement.reward);
+
 			Alert.alert(
 				'Congratulations!',
 				'You have received a 10CAT! Would you like to view the transaction history?',
@@ -81,6 +105,7 @@ const AdvertisementScreen = () => {
 								params: {
 									screen: 'Wallet',
 									initial: false,
+									id,
 									imgUrl,
 									title,
 								},
@@ -96,21 +121,6 @@ const AdvertisementScreen = () => {
 		}
 	};
 
-
-	const {
-		params: {
-			id,
-			imgUrl,
-			title,
-			rating,
-			genre,
-			address,
-			short_description,
-			dishes,
-			long,
-			lat,
-		},
-	} = useRoute();
 
 
 
@@ -139,7 +149,7 @@ const AdvertisementScreen = () => {
 
 				<View className="bg-white">
 					<View className="px-4 pt-4">
-						<Text className="text-3xl font-bold">{title}</Text>
+						<Text className="text-3xl font-bold">{advertisement.title}</Text>
 						<View className="flex-row space-x-2 my-1">
 							<View className="flex-row items-center space-x-1">
 								<Icon
@@ -150,7 +160,7 @@ const AdvertisementScreen = () => {
 									size={22}
 								/>
 								<Text className="text-gray-500 text-xs">
-									<Text className="text-green-500">{rating}</Text> - {genre}
+									<Text className="text-green-500">{advertisement.rating}</Text> - {advertisement.genre}
 								</Text>
 							</View>
 
@@ -162,11 +172,11 @@ const AdvertisementScreen = () => {
 									opacity={0.4}
 									size={22}
 								/>
-								<Text className="text-xs text-gray-500">Nearby - {address}</Text>
+								<Text className="text-xs text-gray-500">Nearby - {advertisement.address}</Text>
 							</View>
 						</View>
 
-						<Text className="text-gray-500 mt-2 pb-4">{short_description}</Text>
+						<Text className="text-gray-500 mt-2 pb-4">{advertisement.short_description}</Text>
 					</View>
 
 					<TouchableOpacity className="flex-row items-center space-x-2 p-4 border-y border-gray-300">
@@ -184,7 +194,7 @@ const AdvertisementScreen = () => {
 
 					<TouchableOpacity
 						className="flex-row items-center space-x-2 p-4 border-y border-gray-300"
-						onPress={() => navigation.navigate("Delivery")}
+						onPress={() => navigation.navigate("Location")}
 					>
 						<Icon
 							name='location-pin'
@@ -211,6 +221,7 @@ const AdvertisementScreen = () => {
 						</View>
 					)}
 					{/* https://gateway.pinata.cloud/ipfs/QmfVvFKpNrZaXemtDSc37awY4kweGmTDREy6uvjGQTtHC7 */}
+					{/* https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4 */}
 					<Video
 						className="flex-1 w-full"
 						ref={video}
@@ -259,7 +270,10 @@ const AdvertisementScreen = () => {
 				<RewardButton
 					onPress={handleRewardButtonClick}
 					disable={!isVideoEnded}
+					error={isError}
+					advertisement={advertisement}
 				/>
+
 
 
 

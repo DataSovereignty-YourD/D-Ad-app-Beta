@@ -7,6 +7,7 @@ import LocationPermission from '../components/LocationPermission';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 import { UrlTile } from 'react-native-maps';
+import getDistance from '../functions/getDistance';
 
 
 const ProfileScreen = () => {
@@ -24,12 +25,12 @@ const ProfileScreen = () => {
 			return;
 		}
 		let location = await Location.getCurrentPositionAsync({});
-		const currentLocation = `${location.coords.latitude}, ${location.coords.longitude} ${location.timestamp}`;
-		// const currentLocation = {
-		//   latitude: location.coords.latitude,
-		//   longitude: location.coords.longitude,
-		// 	timestamp: location.timestamp,
-		// };
+		// const currentLocation = `${location.coords.latitude}, ${location.coords.longitude} ${location.timestamp}`;
+		const currentLocation = [
+			location.coords.latitude,
+			location.coords.longitude,
+		];
+
 		console.log(currentLocation);
 		// setCurrentLocation(currentLocation);
 		setSearchTerms([...searchTerms, currentLocation]);
@@ -40,12 +41,12 @@ const ProfileScreen = () => {
 		if (!currentLocation || !webViewRef.current) {
 			return;
 		}
-		const { latitude, longitude, timestamp } = currentLocation;
 		let injectedJavaScript = '';
 		searchTerms.forEach((term) => {
+			const distance = getDistance([37.592699, 127.018548], currentLocation);
 			injectedJavaScript += `
 			var input = document.getElementsByName('q')[0];
-			input.value += ' ${term} ${searchTerm}';
+			input.value += ' distance:${distance} ${searchTerm}';
 		`;
 		});
 		webViewRef.current.injectJavaScript(injectedJavaScript);

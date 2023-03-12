@@ -30,7 +30,10 @@ function AdsView(adsList) {
 	)
 }
 
-const HomeScreen = () => {
+
+
+const MyAdsScreen = () => {
+
 	const navigation = useNavigation();
 	const { manifest } = Constants
 	const [adsList, setAdsList] = useState(null);
@@ -61,14 +64,14 @@ const HomeScreen = () => {
 
 				<View className="flex-row ">
 					<View className="px-4">
-					<Icon
-						name='search1'
-						type='antdesign'
-						size={20}
-						
-					/>
+						<Icon
+							name='search1'
+							type='antdesign'
+							size={20}
+
+						/>
 					</View>
-					
+
 					<Icon
 						name='bell'
 						type='feather'
@@ -114,47 +117,10 @@ const HomeScreen = () => {
 
 				<VStack mx={-1} space={2}>
 				{AdsView(adsList)}
-				{/* <AdCard
-					id={123}
-					imgUrl={"https://gateway.pinata.cloud/ipfs/QmWuVtrvPtVYwziA1m9gGVf9iWAneFLQUcVZnNgkewyj6j"}
-					title="klaytn"
-					rating={4.5}
-					genre="Japanese"
-					address="123 Main St"
-					short_description="This is a Test description"
-					dishes={[]}
-					long={127.060926}
-					lat={37.619774}
-				/>
-				<AdCard
-					id={123}
-					imgUrl={require('../assets/images/sushi.jpg')}
-					title="Yo! Sushi"
-					rating={4.5}
-					genre="Japanese"
-					address="123 Main St"
-					short_description="This is a Test description"
-					dishes={[]}
-					long={127.060926}
-					lat={37.619774}
-				/>
-
-				<AdCard
-					id={123}
-					imgUrl={require('../assets/images/sushi.jpg')}
-					title="Yo! Sushi"
-					rating={4.5}
-					genre="Japanese"
-					address="123 Main St"
-					short_description="This is a Test description"
-					dishes={[]}
-					long={127.060926}
-					lat={37.619774}
-				/> */}
 				</VStack>	
 			</ScrollView>
 		</SafeAreaView>
 	);
 };
 
-export default HomeScreen
+export default MyAdsScreen

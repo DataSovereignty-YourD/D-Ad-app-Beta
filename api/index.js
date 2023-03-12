@@ -1,5 +1,5 @@
 import * as solanaWeb3 from "@solana/web3.js";
-
+import { createMint, mintTo } from "@solana/spl-token"
 
 const LAMPORTS_PER_SOL = solanaWeb3.LAMPORTS_PER_SOL;
 
@@ -31,50 +31,50 @@ const getBalance = async (publicKey) => {
 };
 
 const getTransactions = async (numTx, publicKey) => {
-  const connection = createConnection();
+	const connection = createConnection();
 
 	const _publicKey = publicKeyFromString(publicKey);
 
-  let transactionList = await connection.getSignaturesForAddress(_publicKey, {
-    limit: numTx,
-  });
+	let transactionList = await connection.getSignaturesForAddress(_publicKey, {
+		limit: Math.min(numTx, 50), // limit 값을 numTx와 1000 중 작은 값으로 설정
+	});
 
-  let signatureList = transactionList.map(
-    (transaction) => transaction.signature
-  );
-  let transactionDetails = await connection.getParsedTransactions(
-    signatureList
-  );
+	let signatureList = transactionList.map(
+		(transaction) => transaction.signature
+	);
+	let transactionDetails = await connection.getParsedTransactions(
+		signatureList
+	);
 
-  const result = {
-    numTransactions: transactionList.length,
-    transactions: [],
-  };
+	const result = {
+		numTransactions: transactionList.length,
+		transactions: [],
+	};
 
-  transactionList.forEach((transaction, i) => {
-    const date = new Date(transaction.blockTime * 1000);
-    const transactionInstructions =
-      transactionDetails[i].transaction.message.instructions;
+	transactionList.forEach((transaction, i) => {
+		const date = new Date(transaction.blockTime * 1000);
+		const transactionInstructions =
+			transactionDetails[i].transaction.message.instructions;
 
-    const tx = {
-      transactionNo: i + 1,
-      signature: transaction.signature,
-      time: date,
-      status: transaction.confirmationStatus,
-      instructionsInfo: [],
-    };
+		const tx = {
+			transactionNo: i + 1,
+			signature: transaction.signature,
+			time: date,
+			status: transaction.confirmationStatus,
+			instructionsInfo: [],
+		};
 
-    transactionInstructions.forEach((instruction, n) => {
-      tx.instructionsInfo.push({
-        parsed: instruction.parsed.info,
-      });
-    });
+		transactionInstructions.forEach((instruction, n) => {
+			tx.instructionsInfo.push({
+				parsed: instruction.parsed.info,
+			});
+		});
 
-    result.transactions.push(tx);
-  });
+		result.transactions.push(tx);
+	});
 
 
-  return result;
+	return result;
 };
 
 const getSolanaPrice = async () => {
@@ -96,12 +96,33 @@ const publicKeyFromString = (publicKeyString) => {
 const requestAirdrop = async (publicKeyString) => {
 	const connection = createConnection();
 
-	await connection.requestAirdrop(
-		publicKeyFromString(publicKeyString),
-		LAMPORTS_PER_SOL
-	);
+	try {
+		await connection.requestAirdrop(
+			publicKeyFromString(publicKeyString),
+			LAMPORTS_PER_SOL
+		);
+	} catch (err) {
+		throw new Error(`Failed to request airdrop: ${err.message}`);
+	}
 
 };
+
+const mintCATTo = async (destination, amount) => {
+	const connection = createConnection();
+
+	try {
+		await mintTo({
+			connection: connection,
+			payer: getTestKeypair(), // 트렌젝션 송신자 계정
+			mint: publicKeyFromString("6V26iu4YCsCdHWhMpgUgyY3x79MdYALxAwsfKhUxbZFB"), // SPL 토큰 계정
+			destination: publicKeyFromString(destination), // 토큰을 받을 수신자 계정
+			authority: getTestKeypair(),
+			amount: amount,
+		})
+	} catch (err) {
+		throw new Error(`Failed to mint CAT: ${err.message}`);
+	}
+}
 
 
 export {
@@ -113,4 +134,5 @@ export {
 	requestAirdrop,
 	getTestKeypair,
 	getTransactions,
+	mintCATTo,
 };
