@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, View, Image, TextInput, ScrollView, TouchableOpacity, ActivityIndicator, Button } from 'react-native'
+import { SafeAreaView, Text, View, Image, TextInput, ScrollView, TouchableOpacity, ActivityIndicator, Button, RefreshControl } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Icon } from '@rneui/base';
@@ -8,23 +8,25 @@ import AdCard from '../components/AdCard';
 import { VStack } from 'native-base';
 import Constants from 'expo-constants'  //현재 단말기의 시스템 정보를 불러오기 위함
 function AdsView(adsList) {
-	if(adsList === null) return <Text>텅</Text>
-	return(
-		adsList.map((ads)=> {
+	if (adsList === null) return <Text>텅</Text>
+	return (
+		adsList.map((ads, index) => {
 			console.log(ads.Category[0]);
-			return(
+			return (
 				<AdCard
-				id={123}
-				imgUrl={ads.AdsCid}
-				title={ads.Title}
-				rating={4.5}
-				genre={ads.Category}
-				address="123 Main St"
-				short_description={ads.Description}
-				dishes={[]}
-				long={ads.StoreLocation[0].lng}
-				lat={ads.StoreLocation[0].lat}
-			/>
+					key={index}
+					id={123}
+					imgUrl={ads.AdsCid}
+					title={ads.Title}
+					rating={4.5}
+					genre={ads.Category}
+					address="123 Main St"
+					short_description={ads.Description}
+					dishes={[]}
+					long={ads.StoreLocation[0].lng}
+					lat={ads.StoreLocation[0].lat}
+					reward={ads.RpP}
+				/>
 			)
 		})
 	)
@@ -37,22 +39,32 @@ const MyAdsScreen = () => {
 	const navigation = useNavigation();
 	const { manifest } = Constants
 	const [adsList, setAdsList] = useState(null);
+	const [loading, setLoading] = useState(false);
+
 	useLayoutEffect(() => {
 		navigation.setOptions({
 			headerShown: false,
 		});
 	}, []);
 
-	useEffect(()=> {
+	useEffect(() => {
 		CallAds()
-	},[]);
+	}, []);
 
-	
-	function CallAds(){
+
+	function CallAds() {
 		axios.post(`http://${manifest.debuggerHost.split(':').shift()}:8000/adslist`,)
-			.then(res => setAdsList(JSON.parse(JSON.stringify(res.data)))).catch(err => console.log(err));
+			.then(res => {
+				setAdsList(JSON.parse(JSON.stringify(res.data)));
+			}).catch(err => console.log(err))
+			.finally(() => setLoading(false));
+	};
+
+
+	function onRefresh() {
+		CallAds();
 	}
-	
+
 	return (
 		<SafeAreaView className="bg-white pt-5">
 			{/* {Header} */}
@@ -88,6 +100,12 @@ const MyAdsScreen = () => {
 				contentContainerStyle={{
 					paddingBottom: 100,
 				}}
+				refreshControl={
+					<RefreshControl
+						refreshing={loading}
+						onRefresh={onRefresh}
+					/>
+				}
 			>
 				{/* {Categories} */}
 				<Categeries />
@@ -116,8 +134,8 @@ const MyAdsScreen = () => {
 				/> */}
 
 				<VStack mx={-1} space={2}>
-				{AdsView(adsList)}
-				</VStack>	
+					{AdsView(adsList)}
+				</VStack>
 			</ScrollView>
 		</SafeAreaView>
 	);

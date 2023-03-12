@@ -87,7 +87,8 @@ const AdvertisementScreen = () => {
 			// }
 
 			// await mintCATTo("2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND", advertisement.reward);
-
+			
+			
 			Alert.alert(
 				'Congratulations!',
 				'You have received a 10CAT! Would you like to view the transaction history?',
@@ -131,7 +132,7 @@ const AdvertisementScreen = () => {
 			<ScrollView>
 				<View className="relative">
 					<Image
-						source={{uri:`https://gateway.pinata.cloud/ipfs/${imgUrl}`}}
+						source={{uri: imgUrl}}
 						className="w-full h-56 bg-gray-300 p-4"
 					/>
 					<TouchableOpacity
@@ -225,7 +226,7 @@ const AdvertisementScreen = () => {
 					<Video
 						className="flex-1 w-full"
 						ref={video}
-						source={{ uri: `https://gateway.pinata.cloud/ipfs/${imgUrl}` }}
+						source={{ uri: `https://gateway.pinata.cloud/ipfs/${advertisement.imgUrl}` }}
 						onLoadStart={handleLoadStart}
 						onLoad={handleLoad}
 						onError={handleError}
