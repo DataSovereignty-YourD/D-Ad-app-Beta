@@ -1,4 +1,4 @@
-import { View, Text, Button, TextInput } from 'react-native'
+import { View, Text, Button, TextInput,StyleSheet, Dimensions } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 import { UrlTile } from 'react-native-maps';
 import getDistance from '../functions/getDistance';
-
+import { ProfileButton, ProfileStyled, StyldWebView } from '../styles/screens/ProfileScreen';
 
 const ProfileScreen = () => {
 	const navigation = useNavigation();
@@ -17,7 +17,7 @@ const ProfileScreen = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [searchTerms, setSearchTerms] = useState([]);
 	const webViewRef = useRef(null);
-
+	const SCREEN_HEIGHT = (Dimensions.get('window').height);
 	const handleSearch = async () => {
 		let { status } = await Location.requestForegroundPermissionsAsync();
 		if (status !== 'granted') {
@@ -61,25 +61,24 @@ const ProfileScreen = () => {
 
 	return (
 		<SafeAreaView className="flex-1 bg-white">
-			{/* {Header} */}
-			<View className="flex-row pb-3 pt-2 items-center mx-4 space-x-2">
-				<View className="flex-1">
-
-					<Text className="font-bold text-xl">
-						Profile
-					</Text>
-				</View>
+			<View style={ProfileStyled.ProfileTitle}>
+				<Text className="font-bold text-xl">
+					Profile
+				</Text>
 			</View>
-			<WebView
-				ref={webViewRef}
-				source={{ url: "https://yourd-makeproof.herokuapp.com/" }}
-				onMessage={(event) => { }}
-			/>
-			<View>
-				<Button title='Get Current Location' onPress={handleSearch} />
-				<Button title="Make Proof" onPress={handleInject} />
-			</View>
-
+			<StyldWebView height={SCREEN_HEIGHT} >
+				<WebView
+					ref={webViewRef}
+					source={{ url: "http://localhost:3001" }}
+					onMessage={(event) => { }}
+				/>
+			</StyldWebView>
+				<ProfileButton  >
+					<Button title='Get Current Location' onPress={handleSearch} />
+				</ProfileButton>
+				<ProfileButton>
+					<Button title="Make Proof" onPress={handleInject} />
+				</ProfileButton>
 		</SafeAreaView>
 	)
 }

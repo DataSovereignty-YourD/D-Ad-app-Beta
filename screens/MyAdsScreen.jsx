@@ -8,11 +8,13 @@ import axios from "axios";
 import AdCard from '../components/AdCard';
 import { VStack } from 'native-base';
 import Constants from 'expo-constants'  //현재 단말기의 시스템 정보를 불러오기 위함
+
+
 function AdsView(adsList) {
 	if (adsList === null) return <Text>텅</Text>
 	return (
 		adsList.map((ads, index) => {
-			console.log(ads.Category[0]);
+			console.log(ads.Position[2].D);
 			return (
 				<AdCard
 					key={index}
@@ -56,11 +58,23 @@ const MyAdsScreen = () => {
 
 
 	function CallAds() {
-		axios.post(`http://${manifest.debuggerHost.split(':').shift()}:8000/adslist`,)
-			.then(res => {
-				setAdsList(JSON.parse(JSON.stringify(res.data)));
-			}).catch(err => console.log(err))
-			.finally(() => setLoading(false));
+		// axios.post(`http://${manifest.debuggerHost.split(':').shift()}:8000/adslist`)
+		// 	.then(res => {
+		// 		setAdsList(JSON.parse(JSON.stringify(res.data)));
+		// 	}).catch(err => console.log(err))
+		// 	.finally(() => setLoading(false));
+		axios
+      .post(
+        `http://${manifest.debuggerHost
+          .split(":")
+          .shift()}:8000/adslist/getads`,
+        { Account: "DRnZiKnHr59XHgE7RFrn5nRCFCaaiwHHhwWXnXFNhQ2j" }
+      )
+      .then((res) => {
+        setAdsList(JSON.parse(JSON.stringify(res.data)));
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
 	};
 
 
@@ -70,79 +84,63 @@ const MyAdsScreen = () => {
 
 	
 	return (
-		<SafeAreaView className="bg-white pt-5">
-			{/* {Header} */}
-			<View className="flex-row pt-2 pb-3 items-center mx-4 space-x-2 justify-between">
+    <View>
+      <SafeAreaView style={{ backgroundColor: "white" }} />
+      {/* {Header} */}
+      <View className="flex-row pt-5 pb-3 items-center mx-4 space-x-2 justify-between">
+        <Text className="font-bold text-xl">My Ads</Text>
 
-				<Text className="font-bold text-xl">
-					My Ads
-				</Text>
+        <View className="flex-row ">
+          <View className="px-4">
+            <Icon name="search1" type="antdesign" size={20} />
+          </View>
 
-				<View className="flex-row ">
-					<View className="px-4">
-						<Icon
-							name='search1'
-							type='antdesign'
-							size={20}
+          <Icon name="bell" type="feather" size={20} />
+        </View>
+      </View>
 
-						/>
-					</View>
+      {/* {Body} */}
+      <ScrollView
+        className="bg-gray-100"
+        contentContainerStyle={{
+          paddingBottom: 100,
+        }}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={onRefresh} />
+        }
+      >
+        {/* {Categories} */}
+        <Categeries />
+        <View>
+          <Text className="px-4 pt-6 mb-3 font-bold text-xl">Videos</Text>
+        </View>
+        {/* {Featured Rows} */}
+        {/* <FeaturedRow
+						id="123"
+						title="Featured"
+						description="Paid placements from our partners"
+					/> */}
 
-					<Icon
-						name='bell'
-						type='feather'
-						size={20}
-					/>
-				</View>
+        {/* {Tasty Discounts} */}
+        {/* <FeaturedRow
+						id="1234"
+						title="None Target!"
+						description="This is an advertisement for all D-Ad users!"
+					/> */}
 
-			</View>
+        {/* {Offers near you} */}
+        {/* <FeaturedRow
+						id="12345"
+						title="Offers near you!"
+						description="Why not support your loca restaurant tonight!"
+					/> */}
 
-
-			{/* {Body} */}
-			<ScrollView
-				className="bg-gray-100"
-				contentContainerStyle={{
-					paddingBottom: 100,
-				}}
-				refreshControl={
-					<RefreshControl
-						refreshing={loading}
-						onRefresh={onRefresh}
-					/>
-				}
-			>
-				{/* {Categories} */}
-				<Categeries />
-				<View>
-					<Text className="px-4 pt-6 mb-3 font-bold text-xl">Videos</Text>
-				</View>
-				{/* {Featured Rows} */}
-				{/* <FeaturedRow
-					id="123"
-					title="Featured"
-					description="Paid placements from our partners"
-				/> */}
-
-				{/* {Tasty Discounts} */}
-				{/* <FeaturedRow
-					id="1234"
-					title="None Target!"
-					description="This is an advertisement for all D-Ad users!"
-				/> */}
-
-				{/* {Offers near you} */}
-				{/* <FeaturedRow
-					id="12345"
-					title="Offers near you!"
-					description="Why not support your loca restaurant tonight!"
-				/> */}
-
-				<VStack mx={-1} space={2}>
-					{AdsView(adsList)}
-				</VStack>
-			</ScrollView>
-		</SafeAreaView>
-	);
+        <VStack mx={-1} space={2}>
+          {AdsView(adsList)}
+        </VStack>
+      </ScrollView>
+    </View>
+  );
 };
 
 export default MyAdsScreen

@@ -13,6 +13,8 @@ import { Video } from 'expo-av';
 import { mintCATTo, requestAirdrop } from '../api';
 import { account } from '../constants/account';
 import { selectVideo, setVideo, setVideoWatched } from '../features/videoSlice';
+import axios from 'axios';
+import Constants from 'expo-constants'
 
 const AdvertisementScreen = () => {
 	const video = useRef(null);
@@ -24,13 +26,13 @@ const AdvertisementScreen = () => {
 	const [staus, setStaus] = useState({});
 	const [isVideoEnded, setIsVideoEnded] = useState(false);
 	const [isError, setError] = useState(false);
+	const { manifest } = Constants
 
 	useEffect(() => {
 		dispatch(
 			setVideo({ id: advertisement.id })
 		);
 	}, [])
-
 
 	const {
 		params: {
@@ -92,7 +94,7 @@ const AdvertisementScreen = () => {
 
 			Alert.alert(
 				'Congratulations!',
-				'You have received a 10CAT! Would you like to view the transaction history?',
+				`You have received a ${advertisement.reward}AT! Would you like to view the transaction history?`,
 				[
 					{
 						text: 'No',
@@ -102,6 +104,12 @@ const AdvertisementScreen = () => {
 					{
 						text: 'Yes',
 						onPress: () => {
+							axios.post(
+                			`http://${manifest.debuggerHost
+                  			.split(":")
+                  			.shift()}:8000/adslist/reward`,
+                			{ Account: "DRnZiKnHr59XHgE7RFrn5nRCFCaaiwHHhwWXnXFNhQ2j" , Reward: advertisement.reward}
+              				);
 							navigation.navigate('Main', {
 								screen: 'Wallet',
 								params: {
@@ -133,7 +141,7 @@ const AdvertisementScreen = () => {
 			<ScrollView>
 				<View className="relative">
 					<Image
-						source={{ uri: `https://gateway.pinata.cloud/ipfs/${advertisement.imgUrl}` }}
+						source={{ uri:`https://gateway.pinata.cloud/ipfs/${advertisement.imgUrl}` }}
 						className="w-full h-56 bg-gray-300 p-4"
 					/>
 					<TouchableOpacity
@@ -262,17 +270,12 @@ const AdvertisementScreen = () => {
 
 
 				</View>
-
 				<RewardButton
 					onPress={handleRewardButtonClick}
 					disable={!isVideoEnded}
 					error={isError}
 					advertisement={advertisement}
 				/>
-
-
-
-
 			</ScrollView>
 		</SafeAreaView>
 

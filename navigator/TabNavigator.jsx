@@ -8,7 +8,7 @@ import { useLayoutEffect } from 'react';
 import { Icon } from '@rneui/base';
 import WalletScreen from '../screens/WalletScreen';
 import MapScreen from '../screens/MapScreen';
-
+import { BottomTabStyled } from "../styles/screens/BottomTabStyled";
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
@@ -22,7 +22,9 @@ const TabNavigator = () => {
 
 
 	return (
-		<Tab.Navigator screenOptions={({ route }) => ({
+		<Tab.Navigator screenOptions={(
+			{ route }) => ({
+			tabBarStyle: BottomTabStyled.Layout,
 			tabBarActiveTintColor: "#000000",
 			tabBarInactiveTintColor: "gray",
 			tabBarIcon: ({ focused, color, size }) => {
