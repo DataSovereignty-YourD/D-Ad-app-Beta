@@ -87,8 +87,8 @@ const AdvertisementScreen = () => {
 			// }
 
 			// await mintCATTo("2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND", advertisement.reward);
-			
-			
+
+
 			Alert.alert(
 				'Congratulations!',
 				'You have received a 10CAT! Would you like to view the transaction history?',
@@ -132,7 +132,7 @@ const AdvertisementScreen = () => {
 			<ScrollView>
 				<View className="relative">
 					<Image
-						source={{uri: imgUrl}}
+						source={advertisement.imgUrl}
 						className="w-full h-56 bg-gray-300 p-4"
 					/>
 					<TouchableOpacity
@@ -149,35 +149,29 @@ const AdvertisementScreen = () => {
 				</View>
 
 				<View className="bg-white">
-					<View className="px-4 pt-4">
+					<View className="px-4 pt-3">
 						<Text className="text-3xl font-bold">{advertisement.title}</Text>
-						<View className="flex-row space-x-2 my-1">
-							<View className="flex-row items-center space-x-1">
-								<Icon
-									name='star'
-									type='fontawesome'
-									color="green"
-									opacity={0.4}
-									size={22}
-								/>
-								<Text className="text-gray-500 text-xs">
-									<Text className="text-green-500">{advertisement.rating}</Text> - {advertisement.genre}
-								</Text>
-							</View>
-
-							<View className="flex-row items-center space-x-1">
-								<Icon
-									name='location-pin'
-									type='entypo'
-									color="gray"
-									opacity={0.4}
-									size={22}
-								/>
-								<Text className="text-xs text-gray-500">Nearby - {advertisement.address}</Text>
-							</View>
+						<View className="flex-row space-x-2 my-1 items-center ">
+							<Icon
+								name='star'
+								type='fontawesome'
+								opacity={0.5}
+								size={22}
+							/>
+							<Text className="text-xs text-gray-400">
+								<Text className="text-green-500">{advertisement.rating}</Text> - {advertisement.genre}
+							</Text>
 						</View>
 
-						<Text className="text-gray-500 mt-2 pb-4">{advertisement.short_description}</Text>
+						<View className="flex-row items-center space-x-1 my-1">
+							<Icon
+								name='location-pin'
+								type='entypo'
+								opacity={0.4}
+								size={22}
+							/>
+							<Text className="text-xs text-gray-500">Nearby - {advertisement.address}</Text>
+						</View>
 					</View>
 
 					<TouchableOpacity className="flex-row items-center space-x-2 p-4 border-y border-gray-300">
