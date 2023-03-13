@@ -1,10 +1,8 @@
-
 const solanaWeb3 = require("@solana/web3.js");
-const splToken = require("@solana/spl-token");
+
+// import { createMint, mintTo } from "@solana/spl-token"
 
 const LAMPORTS_PER_SOL = solanaWeb3.LAMPORTS_PER_SOL;
-const payer = splToken.Keypair.generate();
-const mintAuthority = splToken.Keypair.generate();
 
 const createConnection = () => {
 	return new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("devnet"));
@@ -39,7 +37,7 @@ const getTransactions = async (numTx, publicKey) => {
 	const _publicKey = publicKeyFromString(publicKey);
 
 	let transactionList = await connection.getSignaturesForAddress(_publicKey, {
-		limit: numTx,
+		limit: Math.min(numTx, 50), // limit 값을 numTx와 1000 중 작은 값으로 설정
 	});
 
 	let signatureList = transactionList.map(
@@ -74,6 +72,7 @@ const getTransactions = async (numTx, publicKey) => {
 		});
 
 		result.transactions.push(tx);
+
 		console.log(result)
 	});
 
@@ -100,31 +99,33 @@ const publicKeyFromString = (publicKeyString) => {
 const requestAirdrop = async (publicKeyString) => {
 	const connection = createConnection();
 
-	await connection.requestAirdrop(
-		publicKeyFromString(publicKeyString),
-		LAMPORTS_PER_SOL
-	);
+	try {
+		await connection.requestAirdrop(
+			publicKeyFromString(publicKeyString),
+			LAMPORTS_PER_SOL
+		);
+	} catch (err) {
+		throw new Error(`Failed to request airdrop: ${err.message}`);
+	}
 
 };
 
 const mintCATTo = async (destination, amount) => {
 	const connection = createConnection();
-	console.log(payer)
-	console.log(mintAuthority)
 
 	try {
-		await splToken.mintTo({
+		await mintTo({
 			connection: connection,
-			payer: payer, // 트렌젝션 송신자 계정
+			payer: getTestKeypair(), // 트렌젝션 송신자 계정
 			mint: publicKeyFromString("6V26iu4YCsCdHWhMpgUgyY3x79MdYALxAwsfKhUxbZFB"), // SPL 토큰 계정
 			destination: publicKeyFromString(destination), // 토큰을 받을 수신자 계정
-			authority: mintAuthority.publicKey,
-			amount: amount * LAMPORTS_PER_SOL,
+			authority: getTestKeypair(),
+			amount: amount,
 		})
 	} catch (err) {
 		throw new Error(`Failed to mint CAT: ${err.message}`);
 	}
 }
 
-mintCATTo("2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND", 10);
 
+getTransactions(3, "2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND");
