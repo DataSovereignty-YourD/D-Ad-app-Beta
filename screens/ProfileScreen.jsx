@@ -62,7 +62,7 @@ const ProfileScreen = () => {
 	return (
 		<SafeAreaView className="flex-1 bg-white">
 			{/* {Header} */}
-			<View className="flex-row pb-3 pt-2 items-center mx-4 space-x-2">
+			<View className="flex-row pb-3 pt-2 items-center px-4 space-x-2">
 				<View className="flex-1">
 
 					<Text className="font-bold text-xl">

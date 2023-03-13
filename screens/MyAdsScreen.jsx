@@ -72,7 +72,7 @@ const MyAdsScreen = () => {
 	return (
 		<SafeAreaView className="bg-white pt-5">
 			{/* {Header} */}
-			<View className="flex-row pt-2 pb-3 items-center mx-4 space-x-2 justify-between">
+			<View className="flex-row pt-2 pb-3 items-center px-4 space-x-2 justify-between">
 
 				<Text className="font-bold text-xl">
 					My Ads
