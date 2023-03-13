@@ -40,7 +40,7 @@ const RootNavigator = () => {
 					name='PreparingOrderScreen'
 					component={PreparingOrderScreen} />
 				<Rootstack.Screen
-					name='Delivery'
+					name='Location'
 					component={LocationScreen} />
 			</Rootstack.Group>
 

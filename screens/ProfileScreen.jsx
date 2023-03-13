@@ -7,6 +7,7 @@ import LocationPermission from '../components/LocationPermission';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 import { UrlTile } from 'react-native-maps';
+import getDistance from '../functions/getDistance';
 
 
 const ProfileScreen = () => {
@@ -24,12 +25,12 @@ const ProfileScreen = () => {
 			return;
 		}
 		let location = await Location.getCurrentPositionAsync({});
-		const currentLocation = `${location.coords.latitude}, ${location.coords.longitude} ${location.timestamp}`;
-		// const currentLocation = {
-		//   latitude: location.coords.latitude,
-		//   longitude: location.coords.longitude,
-		// 	timestamp: location.timestamp,
-		// };
+		// const currentLocation = `${location.coords.latitude}, ${location.coords.longitude} ${location.timestamp}`;
+		const currentLocation = [
+			location.coords.latitude,
+			location.coords.longitude,
+		];
+
 		console.log(currentLocation);
 		// setCurrentLocation(currentLocation);
 		setSearchTerms([...searchTerms, currentLocation]);
@@ -40,12 +41,13 @@ const ProfileScreen = () => {
 		if (!currentLocation || !webViewRef.current) {
 			return;
 		}
-		const { latitude, longitude, timestamp } = currentLocation;
 		let injectedJavaScript = '';
 		searchTerms.forEach((term) => {
+			const distance = getDistance([37.592699, 127.018548], currentLocation);
+			console.log(distance);
 			injectedJavaScript += `
-			var input = document.getElementsByName('q')[0];
-			input.value += ' ${term} ${searchTerm}';
+			var input = document.getElementById('CurrentLocationInput');
+			input.value = '${distance} ${searchTerm}';
 		`;
 		});
 		webViewRef.current.injectJavaScript(injectedJavaScript);
@@ -70,12 +72,12 @@ const ProfileScreen = () => {
 			</View>
 			<WebView
 				ref={webViewRef}
-				source={{ url: "https://www.google.com" }}
+				source={{ url: "https://yourd-makeproof.herokuapp.com/" }}
 				onMessage={(event) => { }}
 			/>
 			<View>
 				<Button title='Get Current Location' onPress={handleSearch} />
-				<Button title="Search" onPress={handleInject} />
+				<Button title="Make Proof" onPress={handleInject} />
 			</View>
 
 		</SafeAreaView>
