@@ -28,7 +28,6 @@ function AdsView(adsList) {
 					lat={ads.StoreLocation[0].lat}
 					reward={ads.RpP}
 				/>
->>>>>>> 481956ca3cb89ef62886e7445b3b86f266506d2c
 			)
 		})
 	)
@@ -69,11 +68,6 @@ const MyAdsScreen = () => {
 		CallAds();
 	}
 
-	
-	function CallAds(){
-		axios.post(`http://${manifest.debuggerHost.split(':').shift()}:8000/adslist`,)
-			.then(res => setAdsList(JSON.parse(JSON.stringify(res.data)))).catch(err => console.log(err));
-	}
 	
 	return (
 		<SafeAreaView className="bg-white pt-5">
