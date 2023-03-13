@@ -31,6 +31,7 @@ const AdvertisementScreen = () => {
 		);
 	}, [])
 
+
 	const {
 		params: {
 			id,
@@ -132,7 +133,7 @@ const AdvertisementScreen = () => {
 			<ScrollView>
 				<View className="relative">
 					<Image
-						source={advertisement.imgUrl}
+						source={{ uri: `https://gateway.pinata.cloud/ipfs/${advertisement.imgUrl}` }}
 						className="w-full h-56 bg-gray-300 p-4"
 					/>
 					<TouchableOpacity
