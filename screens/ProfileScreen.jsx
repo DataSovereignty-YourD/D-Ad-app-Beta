@@ -12,20 +12,20 @@ import { ProfileButton, ProfileStyled, StyldWebView } from '../styles/screens/Pr
 
 const ProfileScreen = () => {
 	const navigation = useNavigation();
-
 	const [currentLocation, setCurrentLocation] = useState(null);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [searchTerms, setSearchTerms] = useState([]);
 	const webViewRef = useRef(null);
 	const SCREEN_HEIGHT = (Dimensions.get('window').height);
+	
 	const handleSearch = async () => {
 		let { status } = await Location.requestForegroundPermissionsAsync();
 		if (status !== 'granted') {
 			console.log('Permission to access location was denied');
 			return;
 		}
-		let location = await Location.getCurrentPositionAsync({});
 		// const currentLocation = `${location.coords.latitude}, ${location.coords.longitude} ${location.timestamp}`;
+		let location = await Location.getCurrentPositionAsync({});
 		const currentLocation = [
 			location.coords.latitude,
 			location.coords.longitude,
