@@ -13,7 +13,7 @@ const CategoryCard = ({img, title, isActive, onPress}) => {
             source={img}
             className={`h-20 w-20 rounded ${isActive ? 'opacity-100' : 'opacity-70'}`}
       />
-      <Text className= {`absolute bottom-1 left-1 text-white
+      <Text className= {`absolute bottom-0 left-1 text-white
 				${isActive ? 'font-bold' : 'text-white'}`} >
         {title}
       </Text>

@@ -17,9 +17,3 @@ export const StyldWebView = styled.View`
         position: relative;
         height:${(props) => props.height-289}px;
 `
-        
-export const ProfileButton = styled.View`
-    position: relative;
-    height: 50px;
-    border: solid 1px;
-`

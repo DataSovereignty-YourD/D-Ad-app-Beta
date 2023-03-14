@@ -2,7 +2,6 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MyAdsScreen from '../screens/MyAdsScreen';
-import ProfileScreen from '../screens/ProfileScreen';
 import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect } from 'react';
 import { Icon } from '@rneui/base';
@@ -56,7 +55,6 @@ const TabNavigator = () => {
 			}
 		})}>
 			<Tab.Screen name='My Ads' component={MyAdsScreen} />
-			<Tab.Screen name='Profile' component={ProfileScreen} />
 			<Tab.Screen name='Wallet' component={WalletScreen} />
 			{/* <Tab.Screen name='MapTest' component={MapScreen} /> */}
 		</Tab.Navigator>

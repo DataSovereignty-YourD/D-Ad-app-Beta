@@ -137,7 +137,6 @@ const AdvertisementScreen = () => {
 
 	return (
 		<SafeAreaView >
-
 			<ScrollView>
 				<View className="relative">
 					<Video

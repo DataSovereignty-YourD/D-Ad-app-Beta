@@ -5,7 +5,6 @@ import TabNavigator from './TabNavigator';
 import BasketScreen from '../deprecated/BasketScreen';
 import PreparingOrderScreen from '../screens/PreparingOrderScreen';
 import LocationScreen from '../screens/LocationScreen';
-import ProfileScreen from '../screens/ProfileScreen';
 import MyAdsScreen from '../screens/MyAdsScreen';
 import AdvertisementScreen from '../screens/AdvertisementScreen';
 import MapScreen from '../screens/MapScreen';
@@ -48,7 +47,6 @@ const RootNavigator = () => {
 				<Rootstack.Screen name='My Ads' component={MyAdsScreen} />
 				<Rootstack.Screen name='Advertisement' component={AdvertisementScreen} />
 				<Rootstack.Screen name='Wallet' component={WalletScreen} />
-				<Rootstack.Screen name='Profile' component={ProfileScreen} />
 				<Rootstack.Screen name='MapTest' component={MapScreen} />
 			</Rootstack.Group>
 

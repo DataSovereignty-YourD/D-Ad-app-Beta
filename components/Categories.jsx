@@ -14,10 +14,11 @@ const Categories = () => {
     <ScrollView
       contentContainerStyle={{
         paddingHorizontal: 15,
-        paddingTop: 10,
       }}
       horizontal
       showsVerticalScrollIndicator={false}
+      className=" bg-white py-3 max-h-24"
+      // style={{height: 50}}
     >
       <CategoryCard
         img={require("../assets/images/all.jpg")}
