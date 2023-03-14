@@ -37,7 +37,7 @@ export const WalletScreen = () => {
 		if(transactions.length === 0) {
 			return setIsRefreshing(false);
 		}
-		console.log(transactions.length)
+
 		const tx = await getTransactions(transactions.length, tokenAccount);
 		if (tx.transactions[0].signature !== transactions[0].signature) {
 			dispatch(setTransactions(tx.transactions[0]));
