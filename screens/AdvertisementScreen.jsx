@@ -140,7 +140,7 @@ const AdvertisementScreen = () => {
 
 			<ScrollView>
 				<View className="relative">
-					<Image
+					<Video
 						source={{ uri:`https://gateway.pinata.cloud/ipfs/${advertisement.imgUrl}` }}
 						className="w-full h-56 bg-gray-300 p-4"
 					/>
@@ -166,6 +166,7 @@ const AdvertisementScreen = () => {
 								type='fontawesome'
 								opacity={0.5}
 								size={22}
+								color={"yellow"}
 							/>
 							<Text className="text-xs text-gray-400">
 								<Text className="text-green-500">{advertisement.rating}</Text> - {advertisement.genre}
@@ -178,6 +179,7 @@ const AdvertisementScreen = () => {
 								type='entypo'
 								opacity={0.4}
 								size={22}
+								color={"red"}
 							/>
 							<Text className="text-xs text-gray-500">Nearby - {advertisement.address}</Text>
 						</View>
@@ -187,7 +189,7 @@ const AdvertisementScreen = () => {
 						<Icon
 							name='questioncircleo'
 							type='antdesign'
-							color="gray"
+							color="black"
 							opacity={0.6}
 							size={20}
 						/>
@@ -203,7 +205,7 @@ const AdvertisementScreen = () => {
 						<Icon
 							name='location-pin'
 							type='entypo'
-							color="gray"
+							color="red"
 							opacity={0.4}
 							size={22}
 						/>
@@ -239,36 +241,7 @@ const AdvertisementScreen = () => {
 						onPlaybackStatusUpdate={handlePlaybackStatusUpdate}
 					/>
 				</View>
-
 				<View className="pb-40">
-					{/* <Text className="px-4 pt-6 mb-3 font-bold text-xl">Menu</Text> */}
-					{/* {Dishrows} */}
-					{/* <DishRow
-						key={987}
-						id={987}
-						name="fff"
-						description="ffffff"
-						price={100}
-						imgUrl="https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
-					/>
-					<DishRow
-						key={9876}
-						id={9876}
-						name="fff"
-						description="ffffff"
-						price={100}
-						imgUrl="https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
-					/>
-					<DishRow
-						key={98765}
-						id={98765}
-						name="fff"
-						description="ffffff"
-						price={100}
-						imgUrl="https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"
-					/> */}
-
-
 				</View>
 				<RewardButton
 					onPress={handleRewardButtonClick}
