@@ -25,7 +25,7 @@ import getDistance from "../functions/getDistance";
 import * as Location from "expo-location";
 
 function AdsView(adsList) {
-  if (adsList === null) return <Text>텅</Text>;
+  if (adsList === null || adsList === undefined) return <Text>텅</Text>;
   return adsList.map((ads, index) => {
     return (
       <AdCard
@@ -52,8 +52,6 @@ const MyAdsScreen = () => {
   const [adsList, setAdsList] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchTerms, setSearchTerms] = useState([]);
   const webViewRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -68,47 +66,51 @@ const MyAdsScreen = () => {
         `http://${manifest.debuggerHost
           .split(":")
           .shift()}:8000/adslist/getads`,
-        { Account: "DRnZiKnHr59XHgE7RFrn5nRCFCaaiwHHhwWXnXFNhQ2j" }
+        { Account: "6xZw2r77fqQcbVZRAeR4CN4HfCKqUX4Bcd8zvKh5Wsux" }
       )
       .then((res) => {
+        console.log(res);
         setAdsList(JSON.parse(JSON.stringify(res.data)));
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }
 
-
+  function onRefresh() {
+		handleSearch()
+	}
+  
   const handleSearch = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      console.log("Permission to access location was denied");
-      return;
-    }
-    // const currentLocation = `${location.coords.latitude}, ${location.coords.longitude} ${location.timestamp}`;
-    let location = await Location.getCurrentPositionAsync({});
-    const currentLocation = [
-      location.coords.latitude,
-      location.coords.longitude,
-    ];
+	  let { status } = await Location.requestForegroundPermissionsAsync();
+	  if (status !== "granted") {
+		console.log("Permission to access location was denied");
+		return;
+	  }
+	  let location = await Location.getCurrentPositionAsync({});
+	  // const currentLocation = `${location.coords.latitude}, ${location.coords.longitude} ${location.timestamp}`;
+	  const currentLocation = [
+		location.coords.latitude,
+		location.coords.longitude,
+	  ];
+  
+	  console.log(currentLocation);
+	  // setCurrentLocation(currentLocation);
+	  // setSearchTerms([...searchTerms, currentLocation]);
+	  setCurrentLocation(currentLocation);
+	};
 
-    console.log(currentLocation);
-    // setCurrentLocation(currentLocation);
-    setSearchTerms([...searchTerms, currentLocation]);
-    setCurrentLocation(currentLocation);
+  const handleInject = async () => {
     if (!currentLocation || !webViewRef.current) {
       return;
     }
-    let injectedJavaScript = "";
-    searchTerms.forEach((term) => {
-      const distance = getDistance([37.592699, 127.018548], currentLocation);
+      const distance = getDistance([37.6232355, 127.060386], currentLocation);
       console.log(distance);
-      injectedJavaScript += `
+      injectedJavaScript = `
 			var input = document.getElementById('CurrentLocationInput');
-			input.value = '${distance} ${searchTerm}';
+			input.value = '${distance} ';
 			var button = document.getElementById('Verify_Button');
       		button.click();
 		`;
-    });
     webViewRef.current.injectJavaScript(injectedJavaScript);
 	setTimeout(()=> {
 		CallAds();
@@ -136,6 +138,9 @@ const MyAdsScreen = () => {
           contentContainerStyle={{
             paddingBottom: 100,
           }}
+          refreshControl={
+            <RefreshControl refreshing={loading} onRefresh={onRefresh} />
+          }
         >
           {/* {Categories} */}
 
@@ -148,12 +153,14 @@ const MyAdsScreen = () => {
           </VStack>
         </ScrollView>
         <View className="h-16 absolute inset-x-0 bottom-32 border ">
-          <Button  title="Get Current Location" onPress={handleSearch} />
+          <Button  title="Get Current Location" onPress={handleInject} />
         </View>
         <StyldWebView className="h-0">
           <WebView
             ref={webViewRef}
-            source={{ url: "http://localhost:3001" }}
+            source={{ url: `http://${manifest.debuggerHost
+            .split(":")
+            .shift()}:3001` }}
             onMessage={(event) => {}}
           />
         </StyldWebView>
