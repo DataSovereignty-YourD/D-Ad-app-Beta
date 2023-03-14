@@ -7,10 +7,10 @@ import { account } from '../../constants/account';
 import { useSelector } from 'react-redux';
 import { selectTransactions } from '../../features/transactionSlice';
 
-const Balance = () => {
+const Balance = (prop) => {
   const { colors } = useTheme();
 	const [balance, setBalance] = useState(0);
-	const transactions = useSelector(selectTransactions);
+
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -19,7 +19,7 @@ const Balance = () => {
     };
 
     fetchBalance();
-  }, [transactions]);
+  }, [prop]);
 
   return (
     <HStack

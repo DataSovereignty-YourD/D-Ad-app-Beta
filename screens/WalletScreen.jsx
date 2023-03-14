@@ -14,7 +14,6 @@ import { selectTransactions, setTransactions } from '../features/transactionSlic
 import { account, tokenAccount } from '../constants/account';
 
 export const WalletScreen = () => {
-
 	const navigation = useNavigation();
 	const dispatch = useDispatch(selectAdvertisement);
 	const { params: { id = 123, imgUrl = require('../assets/images/sushi.jpg'), title = 'Yo! Sushi!' } = {} } = useRoute();
@@ -38,10 +37,13 @@ export const WalletScreen = () => {
 		if(transactions.length === 0) {
 			return setIsRefreshing(false);
 		}
+		console.log(transactions.length)
 		const tx = await getTransactions(transactions.length, tokenAccount);
-		if (tx.transactions.length !== transactions.length) {
-			dispatch(setTransactions(tx.transactions));
+		if (tx.transactions[0].signature !== transactions[0].signature) {
+			dispatch(setTransactions(tx.transactions[0]));
 		} 
+
+
 		setIsRefreshing(false);
 	}
 
@@ -74,9 +76,9 @@ return (
 				<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
 			}
 		>
-			<Balance />
+			<Balance prop={isRefreshing}/>
 			<ServicesGrid />
-			<TransactionHistory id={id} imgUrl={imgUrl} title={title} />
+			<TransactionHistory prop={isRefreshing} id={id} imgUrl={imgUrl} title={title} />
 			<View className="pb-40"/>
 		</ScrollView>
 

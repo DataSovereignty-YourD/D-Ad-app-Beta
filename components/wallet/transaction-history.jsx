@@ -12,11 +12,12 @@ import { selectTransactions, setTransactions } from '../../features/transactionS
 import { account, tokenAccount } from '../../constants/account';
 
 
-const TransactionHistory = ({ id, imgUrl, title }) => {
+const TransactionHistory = ({prop, id, imgUrl, title }) => {
+	// console.log(transaction);
 	const { colors } = useTheme();
 	const navigation = useNavigation();
-	// const [transactionList, setTransactionList] = useState([]);
-	const transactionList = useSelector(selectTransactions);
+	const [transactionList, setTransactionList] = useState([]);
+	// const transactionList = useSelector(selectTransactions);
 	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -24,7 +25,7 @@ const TransactionHistory = ({ id, imgUrl, title }) => {
 		const fetchTransactions = async (numTx) => {
 			const tx = await getTransactions(numTx, tokenAccount);
 
-			// setTransactionList(tx.transactions);
+			setTransactionList(tx.transactions);
 			dispatch(setTransactions(
 				tx.transactions.map((transaction) => ({
 					...transaction,
@@ -35,7 +36,7 @@ const TransactionHistory = ({ id, imgUrl, title }) => {
 		};
 
 		fetchTransactions(5);
-	}, [])
+	}, [prop])
 
 
 

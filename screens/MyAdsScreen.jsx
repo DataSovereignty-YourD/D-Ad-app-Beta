@@ -25,7 +25,7 @@ import getDistance from "../functions/getDistance";
 import * as Location from "expo-location";
 
 function AdsView(adsList) {
-  if (adsList === null || adsList === undefined) return <Text>텅</Text>;
+  if (adsList === null || adsList === undefined) return <Text className="text-center text-4xl font-bold text-red-500">Not Exist Advertisment</Text>;
   return adsList.map((ads, index) => {
     return (
       <AdCard

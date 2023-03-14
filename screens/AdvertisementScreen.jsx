@@ -90,7 +90,12 @@ const AdvertisementScreen = () => {
 			// }
 
 			// await mintCATTo("2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND", advertisement.reward);
-
+			axios.post(
+				`http://${manifest.debuggerHost
+				  .split(":")
+				  .shift()}:8000/adslist/reward`,
+				{ Account: "DRnZiKnHr59XHgE7RFrn5nRCFCaaiwHHhwWXnXFNhQ2j" , Reward: advertisement.reward}
+				  );
 
 			Alert.alert(
 				'Congratulations!',
@@ -104,12 +109,7 @@ const AdvertisementScreen = () => {
 					{
 						text: 'Yes',
 						onPress: () => {
-							axios.post(
-                			`http://${manifest.debuggerHost
-                  			.split(":")
-                  			.shift()}:8000/adslist/reward`,
-                			{ Account: "DRnZiKnHr59XHgE7RFrn5nRCFCaaiwHHhwWXnXFNhQ2j" , Reward: advertisement.reward}
-              				);
+				
 							navigation.navigate('Main', {
 								screen: 'Wallet',
 								params: {
