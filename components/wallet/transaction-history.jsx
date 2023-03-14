@@ -9,7 +9,7 @@ import { getTransactions } from '../../api';
 import { ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTransactions, setTransactions } from '../../features/transactionSlice';
-import { account } from '../../constants/account';
+import { account, tokenAccount } from '../../constants/account';
 
 
 const TransactionHistory = ({ id, imgUrl, title }) => {
@@ -22,7 +22,7 @@ const TransactionHistory = ({ id, imgUrl, title }) => {
 
 	useEffect(() => {
 		const fetchTransactions = async (numTx) => {
-			const tx = await getTransactions(numTx, account);
+			const tx = await getTransactions(numTx, tokenAccount);
 
 			// setTransactionList(tx.transactions);
 			dispatch(setTransactions(

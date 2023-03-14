@@ -11,7 +11,7 @@ import MintToken, { getTransactions } from '../api';
 import { selectAdvertisement, setAdvertisement } from '../features/advertisementSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTransactions, setTransactions } from '../features/transactionSlice';
-import { account } from '../constants/account';
+import { account, tokenAccount } from '../constants/account';
 
 export const WalletScreen = () => {
 
@@ -38,7 +38,7 @@ export const WalletScreen = () => {
 		if(transactions.length === 0) {
 			return setIsRefreshing(false);
 		}
-		const tx = await getTransactions(transactions.length, account);
+		const tx = await getTransactions(transactions.length, tokenAccount);
 		if (tx.transactions.length !== transactions.length) {
 			dispatch(setTransactions(tx.transactions));
 		} 

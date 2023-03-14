@@ -1,5 +1,5 @@
 import { HStack, VStack, Text, useTheme } from 'native-base';
-import { getBalance, getTestKeypair } from '../../api';
+import { getCATBalance, getTestKeypair } from '../../api';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ const Balance = () => {
 
   useEffect(() => {
     const fetchBalance = async () => {
-      const balance = await getBalance(account);
+      const balance = await getCATBalance(account);
       setBalance(balance);
     };
 
@@ -35,7 +35,7 @@ const Balance = () => {
         </Text>
         <HStack>
           <Text className="text-3xl text-gray-700">
-            {`${balance * 10} CAT`}
+            {`${balance} CAT`}
           </Text>
         </HStack>
       </VStack>

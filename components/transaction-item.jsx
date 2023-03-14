@@ -14,7 +14,6 @@ const TransactionItem = ({ transaction, imgUrl, title, onPress }) => {
     Linking.openURL(url);
   }, [transaction.signature]);
 
-
 	return (
 		<TouchableOpacity onPress={handlePress}>
 			<HStack alignItems="center" py={3} px={3} backgroundColor="white" rounded={12}>
@@ -60,7 +59,7 @@ const TransactionItem = ({ transaction, imgUrl, title, onPress }) => {
 					textAlign="right"
 					color={colors.text[500]}
 				>
-					{transaction.instructionsInfo[0].parsed.lamports / LAMPORTS_PER_SOL * 10} CAT
+					{transaction.instructionsInfo[0].parsed.amount / LAMPORTS_PER_SOL} CAT
 				</Text>
 			</HStack>
 		</TouchableOpacity>

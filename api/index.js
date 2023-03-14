@@ -1,5 +1,6 @@
 import * as solanaWeb3 from "@solana/web3.js";
 import { createMint, mintTo } from "@solana/spl-token"
+import base58 from "bs58";
 
 const LAMPORTS_PER_SOL = solanaWeb3.LAMPORTS_PER_SOL;
 
@@ -20,10 +21,54 @@ const getBalance = async (publicKey) => {
 		const _publicKey = publicKeyFromString(publicKey);
 		const lamports = await connection.getBalance(_publicKey);
 		if (lamports != null) {
-			return lamports / LAMPORTS_PER_SOL;
+			return lamports.toNumber();
 		} else {
 			return 0;
 		}
+	} catch (err) {
+		console.error(`Error: ${err}`);
+		return 0;
+	}
+};
+
+const getCATBalance = async (publicKey) => {
+	try {
+		const connection = createConnection();
+		const _publicKey = publicKeyFromString(publicKey);
+		const accounts = await connection.getParsedProgramAccounts(
+			publicKeyFromString("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"),
+			{
+				filters: [
+					{
+						dataSize: 165, // number of bytes
+					},
+					{
+						memcmp: {
+							offset: 32, // number of bytes
+							bytes: publicKey, // base58 encoded string
+						},
+					},
+				],
+			}
+		);
+
+		console.log(
+			`Found ${accounts.length} token account(s) for wallet ${publicKey}: `
+		);
+		accounts.forEach((account, i) => {
+			console.log(
+				`-- Token Account Address ${i + 1}: ${account.pubkey.toString()} --`
+			);
+			console.log(`Mint: ${account.account.data["parsed"]["info"]["mint"]}`);
+			console.log(
+				`Amount: ${account.account.data["parsed"]["info"]["tokenAmount"]["uiAmount"]}`
+			);
+
+			
+		});
+
+		return accounts[0].account.data["parsed"]["info"]["tokenAmount"]["uiAmount"];
+
 	} catch (err) {
 		console.error(`Error: ${err}`);
 		return 0;
@@ -124,6 +169,64 @@ const mintCATTo = async (destination, amount) => {
 	}
 }
 
+const getKeypairFromsecretKeyString = (secretKeyString) => {
+	const secretKey = base58.decode(secretKeyString);
+	const keypair = solanaWeb3.Keypair.fromSecretKey(secretKey);
+
+	// console.log(keypair.publicKey.toString());
+	return keypair;
+}
+
+// 발신계정: 2JkjeCG2mKjiCLwah25Dg78yxwQj5XCQEoUAMTTN3mmk
+const fromWalletSecretkey = 'Jo6mgLM9qhKPnwK5L46qKuKNt49r6wCwkR2iRSSZfpidFiuLhfx5SCLSxM5ZYduY7gYaVBVMuN7WRNYokgoVT8N';
+
+// 수신계정: 2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND
+const toWalletSecretkey = '2v2bCmzap4Yo8HAzgujMNL5sGuhmRZmvfh1z1TNzJZE6kb2ysphBCXB9WWfcZooxuo7e4hUKF1w2brC1Spa6tcx9'
+
+
+const fromWallet = getKeypairFromsecretKeyString(fromWalletSecretkey);
+const toWallet = getKeypairFromsecretKeyString(toWalletSecretkey);
+
+
+const transferCAT = async (tokenAddress, fromWallet, toWallet, amount) => {
+	const connection = createConnection();
+
+	const _publicKey = publicKeyFromString(tokenAddress)
+
+	const fromTokenAccount = await splToken.getOrCreateAssociatedTokenAccount(
+		connection,
+		fromWallet,
+		_publicKey,
+		fromWallet.publicKey
+	);
+
+	const toTokenAccount = await splToken.getOrCreateAssociatedTokenAccount(
+		connection,
+		fromWallet,
+		_publicKey,
+		toWallet.publicKey
+	);
+
+	console.log(fromTokenAccount.address, "fromTokenAccount")
+	console.log(toTokenAccount.address, "toTokenAccount")
+
+	console.log("before transfer")
+	const signature = await splToken.transfer(
+		connection,
+		fromWallet,
+		fromTokenAccount.address,
+		toTokenAccount.address,
+		fromWallet.publicKey,
+		amount * LAMPORTS_PER_SOL
+	);
+
+	console.log(signature);
+	return signature;
+}
+
+transferCAT("GzioiHQv2A6Wx2q9XRt5FwsRTUoTjRmgdSugVXF75qiu", fromWallet, toWallet, 1);
+
+
 
 export {
 	LAMPORTS_PER_SOL,
@@ -135,4 +238,6 @@ export {
 	getTestKeypair,
 	getTransactions,
 	mintCATTo,
+	transferCAT,
+	getCATBalance,
 };

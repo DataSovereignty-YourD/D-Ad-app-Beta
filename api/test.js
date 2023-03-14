@@ -1,4 +1,6 @@
 const solanaWeb3 = require("@solana/web3.js");
+const splToken = require("@solana/spl-token");
+const base58 = require("bs58")
 
 // import { createMint, mintTo } from "@solana/spl-token"
 
@@ -15,16 +17,44 @@ const getTestKeypair = () => {
 	return solanaWeb3.Keypair.fromSecretKey(secretKey);
 }
 
-const getBalance = async (publicKey) => {
+const getCATBalance = async (publicKey) => {
 	try {
 		const connection = createConnection();
 		const _publicKey = publicKeyFromString(publicKey);
-		const lamports = await connection.getBalance(_publicKey);
-		if (lamports != null) {
-			return lamports / LAMPORTS_PER_SOL;
-		} else {
-			return 0;
-		}
+		const accounts = await connection.getParsedProgramAccounts(
+			publicKeyFromString("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"),
+			{
+				filters: [
+					{
+						dataSize: 165, // number of bytes
+					},
+					{
+						memcmp: {
+							offset: 32, // number of bytes
+							bytes: publicKey, // base58 encoded string
+						},
+					},
+				],
+			}
+		);
+
+		console.log(
+			`Found ${accounts.length} token account(s) for wallet ${publicKey}: `
+		);
+		accounts.forEach((account, i) => {
+			console.log(
+				`-- Token Account Address ${i + 1}: ${account.pubkey.toString()} --`
+			);
+			console.log(`Mint: ${account.account.data["parsed"]["info"]["mint"]}`);
+			console.log(
+				`Amount: ${account.account.data["parsed"]["info"]["tokenAmount"]["uiAmount"]}`
+			);
+
+			return account.account.data["parsed"]["info"]["tokenAmount"]["uiAmount"];
+		});
+		
+		console.log(accounts[0].account.data["parsed"]["info"]["tokenAmount"]["uiAmount"])
+
 	} catch (err) {
 		console.error(`Error: ${err}`);
 		return 0;
@@ -73,8 +103,12 @@ const getTransactions = async (numTx, publicKey) => {
 
 		result.transactions.push(tx);
 
-		console.log(result)
+
+		
+		
 	});
+
+	console.log(result.transactions[0].instructionsInfo[0].parsed / LAMPORTS_PER_SOL)
 
 
 	return result;
@@ -127,5 +161,65 @@ const mintCATTo = async (destination, amount) => {
 	}
 }
 
+const getKeypairFromsecretKeyString = (secretKeyString) => {
+	const secretKey = base58.decode(secretKeyString);
+	const keypair = solanaWeb3.Keypair.fromSecretKey(secretKey);
 
-getTransactions(3, "2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND");
+	// console.log(keypair.publicKey.toString());
+	return keypair;
+}
+
+// 발신계정: 2JkjeCG2mKjiCLwah25Dg78yxwQj5XCQEoUAMTTN3mmk
+const fromWalletSecretkey = 'Jo6mgLM9qhKPnwK5L46qKuKNt49r6wCwkR2iRSSZfpidFiuLhfx5SCLSxM5ZYduY7gYaVBVMuN7WRNYokgoVT8N';
+
+// 수신계정: 2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND
+const toWalletSecretkey = '2v2bCmzap4Yo8HAzgujMNL5sGuhmRZmvfh1z1TNzJZE6kb2ysphBCXB9WWfcZooxuo7e4hUKF1w2brC1Spa6tcx9'
+
+
+const fromWallet = getKeypairFromsecretKeyString(fromWalletSecretkey);
+const toWallet = getKeypairFromsecretKeyString(toWalletSecretkey);
+
+console.log(toWallet.publicKey.toString())
+
+const transferCAT = async (tokenAddress, fromWallet, toWallet, amount) => {
+	const connection = createConnection();
+
+	const _publicKey = publicKeyFromString(tokenAddress)
+
+	const fromTokenAccount = await splToken.getOrCreateAssociatedTokenAccount(
+		connection,
+		fromWallet,
+		_publicKey,
+		fromWallet.publicKey
+	);
+
+	const toTokenAccount = await splToken.getOrCreateAssociatedTokenAccount(
+		connection,
+		fromWallet,
+		_publicKey,
+		toWallet.publicKey
+	);
+
+	console.log(fromTokenAccount.address, "fromTokenAccount")
+	console.log(toTokenAccount.address, "toTokenAccount")
+
+	console.log("before transfer")
+	const signature = await splToken.transfer(
+		connection,
+		fromWallet,
+		fromTokenAccount.address,
+		toTokenAccount.address,
+		fromWallet.publicKey,
+		amount * LAMPORTS_PER_SOL
+	);
+
+	console.log(signature.transactions.instructionsInfo[0]);
+	return signature;
+}
+
+// transferCAT("GzioiHQv2A6Wx2q9XRt5FwsRTUoTjRmgdSugVXF75qiu", fromWallet, toWallet, 1);
+
+// getCATBalance("2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND")
+
+
+getTransactions(3, "Cpntq3raNxVzAsmgvWozRq5maeKvHkwvsp937xY2py4K");
