@@ -8,6 +8,7 @@ import { Icon } from '@rneui/base';
 import WalletScreen from '../screens/WalletScreen';
 import MapScreen from '../screens/MapScreen';
 import { BottomTabStyled } from "../styles/screens/BottomTabStyled";
+import ProfileScreen from '../screens/ProfileScreen';
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
@@ -55,6 +56,7 @@ const TabNavigator = () => {
 			}
 		})}>
 			<Tab.Screen name='My Ads' component={MyAdsScreen} />
+			{/* <Tab.Screen name='Profile' component={ProfileScreen} /> */}
 			<Tab.Screen name='Wallet' component={WalletScreen} />
 			{/* <Tab.Screen name='MapTest' component={MapScreen} /> */}
 		</Tab.Navigator>

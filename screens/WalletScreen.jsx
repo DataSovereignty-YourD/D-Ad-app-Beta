@@ -16,7 +16,7 @@ import { account, tokenAccount } from '../constants/account';
 export const WalletScreen = () => {
 	const navigation = useNavigation();
 	const dispatch = useDispatch(selectAdvertisement);
-	const { params: { id = 123, imgUrl = require('../assets/images/sushi.jpg'), title = 'Yo! Sushi!' } = {} } = useRoute();
+	const { params: { id = 1, imgUrl = require('../assets/images/Subway.png'), title = 'SandWiches' } = {} } = useRoute();
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const transactions = useSelector(selectTransactions);
 
@@ -64,7 +64,6 @@ return (
 					Wallet
 				</Text>
 			</View>
-
 		</View>
 
 		<ScrollView

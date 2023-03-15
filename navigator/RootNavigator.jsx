@@ -9,6 +9,7 @@ import MyAdsScreen from '../screens/MyAdsScreen';
 import AdvertisementScreen from '../screens/AdvertisementScreen';
 import MapScreen from '../screens/MapScreen';
 import WalletScreen from '../screens/WalletScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Rootstack = createNativeStackNavigator();
 
@@ -48,6 +49,7 @@ const RootNavigator = () => {
 				<Rootstack.Screen name='Advertisement' component={AdvertisementScreen} />
 				<Rootstack.Screen name='Wallet' component={WalletScreen} />
 				<Rootstack.Screen name='MapTest' component={MapScreen} />
+				{/* <Rootstack.Screen name='Profile' component={ProfileScreen} /> */}
 			</Rootstack.Group>
 
 

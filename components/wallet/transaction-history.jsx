@@ -76,7 +76,7 @@ const TransactionHistory = ({prop, id, imgUrl, title }) => {
 								key={transaction.signature}
 								transaction={transaction}
 								imgUrl={id === 123 ? require('../../assets/images/sushi.jpg') : imgUrl}
-								title={id === 123 ? 'Yo! Sushi!': title}
+								title={id === 123 ? 'SandWiches': title}
 							/>
 						))
 					) : (
