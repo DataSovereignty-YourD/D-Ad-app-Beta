@@ -17,7 +17,7 @@ export const WalletScreen = () => {
 
 	const navigation = useNavigation();
 	const dispatch = useDispatch(selectAdvertisement);
-	const { params: { id = 123, imgUrl = require('../assets/images/sushi.jpg'), title = 'Yo! Sushi!' } = {} } = useRoute();
+	const { params: { id = 12, imgUrl = require('../assets/images/Subway.png'), title = 'Subway' } = {} } = useRoute();
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const transactions = useSelector(selectTransactions);
 
@@ -74,9 +74,9 @@ return (
 				<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
 			}
 		>
-			<Balance />
+			<Balance isRefreshing={isRefreshing}/>
 			<ServicesGrid />
-			<TransactionHistory id={id} imgUrl={imgUrl} title={title} />
+			<TransactionHistory isRefreshing={isRefreshing} id={id} imgUrl={imgUrl} title={title} />
 			<View className="pb-40"/>
 		</ScrollView>
 

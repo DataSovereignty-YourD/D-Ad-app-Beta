@@ -12,7 +12,7 @@ import { selectTransactions, setTransactions } from '../../features/transactionS
 import { account, tokenAccount } from '../../constants/account';
 
 
-const TransactionHistory = ({ id, imgUrl, title }) => {
+const TransactionHistory = ({ isRefreshing, id, imgUrl, title }) => {
 	const { colors } = useTheme();
 	const navigation = useNavigation();
 	// const [transactionList, setTransactionList] = useState([]);
@@ -35,7 +35,7 @@ const TransactionHistory = ({ id, imgUrl, title }) => {
 		};
 
 		fetchTransactions(5);
-	}, [])
+	}, [isRefreshing])
 
 
 

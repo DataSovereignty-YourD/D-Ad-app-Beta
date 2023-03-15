@@ -11,7 +11,7 @@ import Constants from 'expo-constants'  //현재 단말기의 시스템 정보�
 
 
 function AdsView(adsList) {
-	if (adsList === null) return <Text>텅</Text>
+	if (adsList === null || adsList === undefined) return <Text className="text-center text-4xl font-bold text-red-500">Not Exist Advertisment</Text>
 	return (
 		adsList.map((ads, index) => {
 			return (
@@ -51,9 +51,9 @@ const MyAdsScreen = () => {
 	}, []);
 
 
-	useEffect(() => {
-		CallAds()
-	}, []);
+	// useEffect(() => {
+	// 	CallAds()
+	// }, []);
 
 
 	function CallAds() {
@@ -62,10 +62,10 @@ const MyAdsScreen = () => {
         `http://${manifest.debuggerHost
           .split(":")
           .shift()}:8000/adslist/getads`,
-        { Account: "DRnZiKnHr59XHgE7RFrn5nRCFCaaiwHHhwWXnXFNhQ2j" }
+        { Account: "6xZw2r77fqQcbVZRAeR4CN4HfCKqUX4Bcd8zvKh5Wsux" }
       )
       .then((res) => {
-        setAdsList(JSON.parse(JSON.stringify(res.data)));
+        if(res.data !== "not") {setAdsList(JSON.parse(JSON.stringify(res.data)));}
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
