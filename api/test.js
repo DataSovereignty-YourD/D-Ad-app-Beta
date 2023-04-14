@@ -1,7 +1,42 @@
 const solanaWeb3 = require("@solana/web3.js");
 const splToken = require("@solana/spl-token");
 const base58 = require("bs58")
+const TronGrid = require('trongrid');
+const TronWeb = require('tronweb');
 
+const tronTestPrivateKey = '7408ee3cde0cb94c91b52fb9745246658dbd355bf88dbd227862dbd8049a6420';
+
+const tronWeb = new TronWeb({
+	fullHost: 'https://nile.trongrid.io/',
+	headers: { "TRON-PRO-API-KEY": 'bebea5d2-ccdf-4d59-87ab-a8301dd8b2eb' },
+	privateKey: tronTestPrivateKey
+})
+const tronGrid = new TronGrid(tronWeb);
+
+const tronTestAddress = 'TD2i9VRM69su4kSANvvg421XRCwon3c1Cx';
+
+async function getAccountBalance(address) {
+  try {
+    const balance = await tronWeb.trx.getBalance(address);
+    console.log('Account Balance:', balance / 10 ** 6, 'TRX');
+  } catch (error) {
+    console.error('Error while fetching account balance:', error);
+  }
+}
+
+async function getAccountTransactions(address) {
+  try {
+    const transactions = await tronGrid.account.getTransactions(address);
+    console.log('Account Transactions:', transactions);
+  } catch (error) {
+    console.error('Error while fetching account transactions:', error);
+  }
+}
+
+getAccountBalance(tronTestAddress);
+getAccountTransactions(tronTestAddress);
+
+// Solana Transaction 
 // import { createMint, mintTo } from "@solana/spl-token"
 
 const LAMPORTS_PER_SOL = solanaWeb3.LAMPORTS_PER_SOL;
@@ -222,4 +257,4 @@ const transferCAT = async (tokenAddress, fromWallet, toWallet, amount) => {
 // getCATBalance("2CFRPpRoxA7bX5udXPdh8denNHeiSUhoy9Qcm6yyLkND")
 
 
-getTransactions(3, "Cpntq3raNxVzAsmgvWozRq5maeKvHkwvsp937xY2py4K");
+// getTransactions(3, "Cpntq3raNxVzAsmgvWozRq5maeKvHkwvsp937xY2py4K");

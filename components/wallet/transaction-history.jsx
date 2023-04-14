@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Heading, HStack, Text, useTheme, VStack } from 'native-base';
 import TransactionItem from '../transaction-item';
 import { TRANSACTIONS } from '../../constants/transactions';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { getTransactions } from '../../api';
@@ -10,31 +10,20 @@ import { ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTransactions, setTransactions } from '../../features/transactionSlice';
 import { account, tokenAccount } from '../../constants/account';
+import { TransactionContext } from '../../contexts/TransactionContext';
 
 
 const TransactionHistory = ({ isRefreshing, id, imgUrl, title }) => {
 	const { colors } = useTheme();
 	const navigation = useNavigation();
 	// const [transactionList, setTransactionList] = useState([]);
-	const transactionList = useSelector(selectTransactions);
-	const dispatch = useDispatch();
-	const [isLoading, setIsLoading] = useState(true);
+
+
+	// useContext를 사용하여 전역 transactions, isLoading 및 fetchTransactions 가져오기
+	const { transactions, isLoading, fetchTransactions } = useContext(TransactionContext);
 
 	useEffect(() => {
-		const fetchTransactions = async (numTx) => {
-			const tx = await getTransactions(numTx, tokenAccount);
-
-			// setTransactionList(tx.transactions);
-			dispatch(setTransactions(
-				tx.transactions.map((transaction) => ({
-					...transaction,
-					time: transaction.time.toLocaleString('en-US'),
-				}))
-			));
-			setIsLoading(false);
-		};
-
-		fetchTransactions(5);
+		fetchTransactions("TLhQKEzhL6qBS8ihN5BeU1hBfHKuN8pW1t");
 	}, [isRefreshing])
 
 
@@ -69,10 +58,10 @@ const TransactionHistory = ({ isRefreshing, id, imgUrl, title }) => {
 				</VStack>
 			) : (
 				<VStack mx={-1} my={-2} space={2}>
-					{transactionList.length > 0 ? (
-						transactionList.map((transaction) => (
+					{transactions.length > 0 ? (
+						transactions.map((transaction) => (
 							<TransactionItem
-								key={transaction.signature}
+								key={transaction.transaction_id}
 								transaction={transaction}
 								imgUrl={id === 123 ? require('../../assets/images/sushi.jpg') : imgUrl}
 								title={id === 123 ? 'Yo! Sushi!': title}

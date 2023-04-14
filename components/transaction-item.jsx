@@ -10,9 +10,15 @@ const TransactionItem = ({ transaction, imgUrl, title, onPress }) => {
 	const { colors } = useTheme();
 
   const handlePress = useCallback(() => {
-    const url = `https://explorer.solana.com/tx/${transaction.signature}?cluster=devnet`;
+    const url = `https://nile.tronscan.org/#/transaction/${transaction.transaction_id}`;
     Linking.openURL(url);
-  }, [transaction.signature]);
+  }, [transaction.transaction_id]);
+
+	  // Convert the block_timestamp to a Date object
+		const date = new Date(transaction.block_timestamp);
+
+		// Format the date using toLocaleString()
+		const formattedDate = date.toLocaleString();
 
 	return (
 		<TouchableOpacity onPress={handlePress}>
@@ -36,11 +42,11 @@ const TransactionItem = ({ transaction, imgUrl, title, onPress }) => {
 							fontWeight="bold"
 							color={colors.text[500]}
 						>
-							{transaction.status == 'finalized' ? 'Complete' : transaction.status == 'error' ? 'Transaction Error' : 'Search for this transcription.'}
+							{transaction.status == 'finalized' ? 'Complete' : transaction.status == 'error' ? 'Transaction Error' : 'Complete'}
 						</Text>
 					</HStack>
 					<Text fontSize="xs" color={colors.gray[500]} mt={1}>
-						{transaction.time.toLocaleString('en-US')}
+						{formattedDate}
 					</Text>
 				</VStack>
 				<Text
@@ -59,7 +65,7 @@ const TransactionItem = ({ transaction, imgUrl, title, onPress }) => {
 					textAlign="right"
 					color={colors.text[500]}
 				>
-					{transaction.instructionsInfo[0].parsed.amount / LAMPORTS_PER_SOL} CAT
+					{transaction.result.value} URD
 				</Text>
 			</HStack>
 		</TouchableOpacity>

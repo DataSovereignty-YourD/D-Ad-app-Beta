@@ -41,7 +41,7 @@ const RewardButton = ({ onPress, disable, error, advertisement }) => {
 			>
 
 				<Text className={`flex-1 text-white font-extrabold text-lg text-center`}>
-					{video.isWatched && isButtonPressed ? "Already Rewarded" : `Getting ${advertisement.reward}CAT Reward`}
+					{video.isWatched && isButtonPressed ? "Already Rewarded" : `Getting ${advertisement.reward}URD Reward`}
 				</Text>
 			</TouchableOpacity>
 
