@@ -33,7 +33,6 @@ const ProfileScreen = () => {
 
 		console.log(currentLocation);
 		// setCurrentLocation(currentLocation);
-		setSearchTerms([...searchTerms, currentLocation]);
 		setCurrentLocation(currentLocation);
 	};
 
@@ -41,15 +40,16 @@ const ProfileScreen = () => {
 		if (!currentLocation || !webViewRef.current) {
 			return;
 		}
-		let injectedJavaScript = '';
-		searchTerms.forEach((term) => {
+
 			const distance = getDistance([37.592699, 127.018548], currentLocation);
 			console.log(distance);
-			injectedJavaScript += `
+			let injectedJavaScript = `
 			var input = document.getElementById('CurrentLocationInput');
-			input.value = '${distance} ${searchTerm}';
+			input.value = '${distance}';
+            var button = document.getElementById('Verify_Button');
+            button.click();
 		`;
-		});
+
 		webViewRef.current.injectJavaScript(injectedJavaScript);
 	};
 

@@ -8,7 +8,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/Untitled.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
@@ -16,15 +16,17 @@
     ],
     "ios": {
       "supportsTablet": true,
-			"config": {
-				"googleMapsApiKey": "AIzaSyDxVLaRBDRQi5Q8ojYz80dWXwd3Gq8DDsc"
-			}
+      "config": {
+        "googleMapsApiKey": "AIzaSyDxVLaRBDRQi5Q8ojYz80dWXwd3Gq8DDsc"
+      },
+      "bundleIdentifier": "ios.build.DAdBeta"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "ios.build.example"
     },
     "web": {
       "favicon": "./assets/favicon.png"

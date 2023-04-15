@@ -2,24 +2,21 @@ import { HStack, VStack, Text, useTheme } from 'native-base';
 import { getCATBalance, getTestKeypair } from '../../api';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { account } from '../../constants/account';
 import { useSelector } from 'react-redux';
 import { selectTransactions } from '../../features/transactionSlice';
+import { TransactionContext } from '../../contexts/TransactionContext';
 
-const Balance = () => {
+const Balance = (isRefreshing) => {
   const { colors } = useTheme();
-	const [balance, setBalance] = useState(0);
-	const transactions = useSelector(selectTransactions);
+
+	const { balance, isLoading, fetchBalance } = useContext(TransactionContext); 
 
   useEffect(() => {
-    const fetchBalance = async () => {
-      const balance = await getCATBalance(account);
-      setBalance(balance);
-    };
+		fetchBalance("TLhQKEzhL6qBS8ihN5BeU1hBfHKuN8pW1t")
 
-    fetchBalance();
-  }, [transactions]);
+  }, [isRefreshing]);
 
   return (
     <HStack
@@ -35,7 +32,7 @@ const Balance = () => {
         </Text>
         <HStack>
           <Text className="text-3xl text-gray-700">
-            {`${balance} CAT`}
+            {`${balance} URD`}
           </Text>
         </HStack>
       </VStack>

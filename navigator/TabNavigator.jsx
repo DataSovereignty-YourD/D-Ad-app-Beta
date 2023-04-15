@@ -2,13 +2,15 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MyAdsScreen from '../screens/MyAdsScreen';
-import ProfileScreen from '../screens/ProfileScreen';
 import { useNavigation } from '@react-navigation/native';
 import { useLayoutEffect } from 'react';
 import { Icon } from '@rneui/base';
 import WalletScreen from '../screens/WalletScreen';
 import MapScreen from '../screens/MapScreen';
 import { BottomTabStyled } from "../styles/screens/BottomTabStyled";
+import ProfileScreen from '../screens/ProfileScreen';
+import PreferenceScreen from '../screens/PreferenceScreen';
+
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
@@ -52,11 +54,20 @@ const TabNavigator = () => {
 								color={focused ? "#000000" : "gray"}
 							/>
 						)
+				} else if (route.name === 'Preference') {
+					return (
+						<Icon 
+								name='cog'
+								type='entypo'
+								color={focused ? "#000000" : "gray"}
+							/>
+					)
 				}
 			}
 		})}>
 			<Tab.Screen name='My Ads' component={MyAdsScreen} />
 			<Tab.Screen name='Profile' component={ProfileScreen} />
+			<Tab.Screen name='Preference' component={PreferenceScreen} />
 			<Tab.Screen name='Wallet' component={WalletScreen} />
 			{/* <Tab.Screen name='MapTest' component={MapScreen} /> */}
 		</Tab.Navigator>

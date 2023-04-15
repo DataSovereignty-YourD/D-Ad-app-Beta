@@ -12,15 +12,17 @@ import { selectAdvertisement, setAdvertisement } from '../features/advertisement
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTransactions, setTransactions } from '../features/transactionSlice';
 import { account, tokenAccount } from '../constants/account';
+import { TransactionProvider } from '../contexts/TransactionContext';
 
 export const WalletScreen = () => {
 
 	const navigation = useNavigation();
 	const dispatch = useDispatch(selectAdvertisement);
-	const { params: { id = 123, imgUrl = require('../assets/images/sushi.jpg'), title = 'Yo! Sushi!' } = {} } = useRoute();
+	const { params: { id = 12, imgUrl = require('../assets/images/Subway.png'), title = 'Subway' } = {} } = useRoute();
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const transactions = useSelector(selectTransactions);
 
+	
 
 	useEffect(() => {
 		dispatch(
@@ -30,61 +32,62 @@ export const WalletScreen = () => {
 				title,
 			})
 		)
-		
+
 	}, []);
 
 	const onRefresh = async () => {
 		setIsRefreshing(true);
-		if(transactions.length === 0) {
+		if (transactions.length === 0) {
 			return setIsRefreshing(false);
 		}
 		const tx = await getTransactions(transactions.length, tokenAccount);
 		if (tx.transactions.length !== transactions.length) {
 			dispatch(setTransactions(tx.transactions));
-		} 
+		}
 		setIsRefreshing(false);
 	}
 
-useLayoutEffect(() => {
-	navigation.setOptions({
-		headerShown: false,
-	});
-}, []);
+	useLayoutEffect(() => {
+		navigation.setOptions({
+			headerShown: false,
+		});
+	}, []);
 
-return (
-	<SafeAreaView className="bg-white">
-		{/* {Header} */}
-		<View className="flex-row pb-3 pt-2 items-center px-4 space-x-2">
+	return (
+		<SafeAreaView className="bg-white">
+			<TransactionProvider>
+				{/* {Header} */}
+				<View className="flex-row pb-3 pt-2 items-center px-4 space-x-2">
 
-			<View className="flex-1">
+					<View className="flex-1">
 
-				<Text className="font-bold text-xl">
-					Wallet
-				</Text>
-			</View>
+						<Text className="font-bold text-xl">
+							Wallet
+						</Text>
+					</View>
 
-		</View>
+				</View>
 
-		<ScrollView
-			className="bg-gray-100"
-			contentContainerStyle={{
-				paddingBottom: 100,
-			}}
-			refreshControl={
-				<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-			}
-		>
-			<Balance />
-			<ServicesGrid />
-			<TransactionHistory id={id} imgUrl={imgUrl} title={title} />
-			<View className="pb-40"/>
-		</ScrollView>
+				<ScrollView
+					className="bg-gray-100"
+					contentContainerStyle={{
+						paddingBottom: 100,
+					}}
+					refreshControl={
+						<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+					}
+				>
+					<Balance isRefreshing={isRefreshing} />
+					<ServicesGrid />
+					<TransactionHistory isRefreshing={isRefreshing} id={id} imgUrl={imgUrl} title={title} />
+					<View className="pb-40" />
+				</ScrollView>
+			</TransactionProvider>
 
-	</SafeAreaView>
+		</SafeAreaView>
 
 
-
-);
+	);
 };
 
 export default WalletScreen

@@ -1,6 +1,41 @@
 import * as solanaWeb3 from "@solana/web3.js";
 import { createMint, mintTo } from "@solana/spl-token"
 import base58 from "bs58";
+// import TronGrid from 'trongrid';
+// import TronWeb from 'tronweb';
+
+// // Tron
+
+// const tronTestAddress = 'TD2i9VRM69su4kSANvvg421XRCwon3c1Cx';
+// const tronTestPrivateKey = '7408ee3cde0cb94c91b52fb9745246658dbd355bf88dbd227862dbd8049a6420';
+
+// const tronWeb = new TronWeb({
+// 	fullHost: 'https://nile.trongrid.io/',
+// 	headers: { "TRON-PRO-API-KEY": 'bebea5d2-ccdf-4d59-87ab-a8301dd8b2eb' },
+// 	privateKey: tronTestPrivateKey
+// })
+// const tronGrid = new TronGrid(tronWeb);
+
+
+// async function getAccountBalance(address) {
+//   try {
+//     const balance = await tronWeb.trx.getBalance(address);
+//     console.log('Account Balance:', balance / 10 ** 6, 'TRX');
+//   } catch (error) {
+//     console.error('Error while fetching account balance:', error);
+//   }
+// }
+
+// async function getAccountTransactions(address) {
+//   try {
+//     const transactions = await tronGrid.account.getTransactions(address);
+//     console.log('Account Transactions:', transactions);
+//   } catch (error) {
+//     console.error('Error while fetching account transactions:', error);
+//   }
+// }
+
+// Solana 
 
 const LAMPORTS_PER_SOL = solanaWeb3.LAMPORTS_PER_SOL;
 
@@ -229,6 +264,8 @@ transferCAT("GzioiHQv2A6Wx2q9XRt5FwsRTUoTjRmgdSugVXF75qiu", fromWallet, toWallet
 
 
 export {
+	// getAccountBalance,
+	// getAccountTransactions,
 	LAMPORTS_PER_SOL,
 	createConnection,
 	getBalance,
